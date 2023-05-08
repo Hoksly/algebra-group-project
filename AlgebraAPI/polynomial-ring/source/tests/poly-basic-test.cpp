@@ -205,7 +205,7 @@ TEST_CASE("Testing")
         REQUIRE(p3 == (p1 * p2));
     }
 }
-TEST_CASE("Testing divisionь, gcd")
+TEST_CASE("Testing division, gcd")
 {
     SUBCASE("Test 1")
     {
@@ -306,9 +306,11 @@ TEST_CASE("Testing divisionь, gcd")
         p2.addNode(1, 0);
 
         auto gcd = p1.gcd(p2);
+
         Polynomial<int> expected(2);
         expected.addNode(1, 1);
         expected.addNode(1, 0);
+
         REQUIRE(gcd == expected);
     }
 
@@ -325,16 +327,76 @@ TEST_CASE("Testing divisionь, gcd")
         p2.addNode(4, 1);
         p2.addNode(1, 0);
 
-        // modNum<int> val1(3,5);
-        // modNum<int> val2(2,5);
+        auto gcd = p1.gcd(p2);
+        Polynomial<int> expected(5);
+        expected.addNode(1, 1);
+        expected.addNode(2, 0);
 
-        // auto val3 = val1 / val2;
+        REQUIRE(gcd == expected);
+    }
+
+    SUBCASE("Test 8 - gcd")
+    {
+        Polynomial<int> p1(7);
+        p1.addNode(3, 4);
+        p1.addNode(6, 3);
+        p1.addNode(3, 2);
+        p1.addNode(2, 1);
+        p1.addNode(3, 0);
+
+        Polynomial<int> p2(7);
+        p2.addNode(2, 3);
+        p2.addNode(5, 1);
+        p2.addNode(1, 0);
 
         auto gcd = p1.gcd(p2);
-        gcd.print();
         Polynomial<int> expected(5);
-        expected.addNode(3, 1);
-        expected.addNode(1, 0);
+        expected.addNode(1, 1);
+        expected.addNode(4, 0);
+
+        REQUIRE(gcd == expected);
+    }
+
+    SUBCASE("Test 9 - gcd")
+    {
+        Polynomial<int> p1(3);
+        p1.addNode(1,4);
+        p1.addNode(2,3);
+        p1.addNode(2,1);
+        p1.addNode(1,0);
+
+
+        Polynomial<int> p2(3);
+        p2.addNode(1,3);
+        p2.addNode(2,2);
+        p2.addNode(1,0);
+
+        auto gcd = p1.gcd(p2);
+
+        Polynomial<int> expected(3);
+        expected.addNode(1,0);
+
+        REQUIRE(gcd == expected);
+    }
+    SUBCASE("Test 10 - gcd")
+    {
+        Polynomial<int> p1(7);
+        p1.addNode(3,6);
+        p1.addNode(2,2);
+        p1.addNode(1,1);
+        p1.addNode(5,0);
+
+
+        Polynomial<int> p2(7);
+        p2.addNode(6,4);
+        p2.addNode(1,3);
+        p2.addNode(2,1);
+        p2.addNode(4,0);
+
+        auto gcd = p1.gcd(p2);
+
+        Polynomial<int> expected(7);
+        expected.addNode(1,0);
 
         REQUIRE(gcd == expected);
     }

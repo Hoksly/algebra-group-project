@@ -664,7 +664,11 @@ std::pair<Polynomial<T>, Polynomial<T>> Polynomial<T>::operator/(const Polynomia
         return std::make_pair(quotient, remainder);
     }
 }
-
+/**
+ * @brief Polynomials Greatest Common Divisor
+ * @param other Other polynomial
+ * @return GCD polynomial
+ */
 template <typename T>
 Polynomial<T> Polynomial<T>::gcd(const Polynomial<T> &other) const
 {
@@ -672,13 +676,19 @@ Polynomial<T> Polynomial<T>::gcd(const Polynomial<T> &other) const
 
     while (!h.poly.empty())
     {
-        // g.print();
-        // h.print();
         auto divRes = g / h;
-        // divRes.first.print();
-        // divRes.second.print();
         g = h;
         h = divRes.second;
+    }
+
+    if(!g.poly.empty() && g.poly.front().k() > 1){
+        auto firstCoeff = g.poly.front().k();
+
+        Polynomial<T> monic(g.numMod);
+        for (auto it = g.poly.begin(); it != g.poly.end(); ++it){
+            monic.addNode(Node<T>(it->k() / firstCoeff, it->deg()));
+        }
+        return monic;
     }
 
     return g;
