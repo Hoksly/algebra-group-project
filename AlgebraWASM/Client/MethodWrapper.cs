@@ -86,22 +86,22 @@ namespace AlgebraWASM.Client
 
 	public static class PolyFieldMethods
 	{
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte* polyFieldAddition(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
 
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte* polyFieldSubstruction(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
 
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte* polyFieldMultiplication(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
 
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte* polyFieldDivision(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
 
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte* polyFieldInversion(ref int returnSize, int polySize1, byte** polyStr1, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
 
-		[DllImport("poly-ring-wrapper")]
+		[DllImport("poly-field-wrapper")]
 		public static unsafe extern byte** polyParse1(ref int returnSize, byte* inputPolyString);
 	}
 }
