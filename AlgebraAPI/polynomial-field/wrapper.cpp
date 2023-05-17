@@ -13,7 +13,7 @@
 const size_t MESSAGE_LEN = 200;
 
 vector<std::pair<mpz_class, size_t>>
-stringToPolyVector(char **polyString, size_t polySize, mpz_class numMod)
+stringToPolyVector1(char **polyString, size_t polySize, mpz_class numMod)
 {
     vector<std::pair<mpz_class, size_t>> polyV(polySize);
 
@@ -35,7 +35,7 @@ stringToPolyVector(char **polyString, size_t polySize, mpz_class numMod)
 }
 
 char **
-polyVectorToString(vector<std::pair<mpz_class, size_t>> polyV)
+stringToPolyVector1(vector<std::pair<mpz_class, size_t>> polyV)
 {
     char **resStr = new char *[polyV.size() * 2];
 
@@ -52,16 +52,16 @@ polyVectorToString(vector<std::pair<mpz_class, size_t>> polyV)
 }
 
 std::string
-removeSpaces(std::string str)
+removeSpaces1(std::string str)
 {
     str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
     return str;
 }
 
 std::vector<std::pair<std::string, std::string>>
-convertPolynomial(std::string polynomial)
+convertPolynomial1(std::string polynomial)
 {
-    polynomial = removeSpaces(polynomial);
+    polynomial = removeSpaces1(polynomial);
     std::vector<std::pair<std::string, std::string>> result;
     std::stringstream ss(polynomial);
     std::string term;
@@ -95,9 +95,9 @@ convertPolynomial(std::string polynomial)
 }
 
 extern "C" char **
-polyParse(size_t &polySize, char *polyString)
+polyParse1(size_t &polySize, char *polyString)
 {
-    std::vector<std::pair<std::string, std::string>> v = convertPolynomial(polyString);
+    std::vector<std::pair<std::string, std::string>> v = convertPolynomial1(polyString);
     char **resStr = new char *[v.size() * 2];
     polySize = v.size();
     for (size_t i = 0; i < v.size(); ++i)
@@ -121,11 +121,11 @@ polyFieldAddition(size_t &retSize, size_t polySize1, char **polyStr1, size_t pol
         mpz_class numMod;
         numMod.set_str(numModStr, 10);
 
-        Polynomial<mpz_class> polyRaw1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
+        Polynomial<mpz_class> polyRaw1(stringToPolyVector1(polyStr1, polySize1, numMod), numMod);
         std::string s(polyStr2[1]);
 
-        Polynomial<mpz_class> polyRaw2(stringToPolyVector(polyStr2, polySize2, numMod), numMod);
-        Polynomial<mpz_class> polyMod(stringToPolyVector(polyModStr, polyModSize, numMod), numMod);
+        Polynomial<mpz_class> polyRaw2(stringToPolyVector1(polyStr2, polySize2, numMod), numMod);
+        Polynomial<mpz_class> polyMod(stringToPolyVector1(polyModStr, polyModSize, numMod), numMod);
 
         PolynomialField<mpz_class> poly1(numMod, polyMod, polyRaw1);
         PolynomialField<mpz_class> poly2(numMod, polyMod, polyRaw1);
@@ -157,9 +157,9 @@ polyFieldSubstruction(size_t &retSize, size_t polySize1, char **polyStr1, size_t
         mpz_class numMod;
         numMod.set_str(numModStr, 10);
 
-        Polynomial<mpz_class> polyRaw1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
-        Polynomial<mpz_class> polyRaw2(stringToPolyVector(polyStr2, polySize2, numMod), numMod);
-        Polynomial<mpz_class> polyMod(stringToPolyVector(polyModStr, polyModSize, numMod), numMod);
+        Polynomial<mpz_class> polyRaw1(stringToPolyVector1(polyStr1, polySize1, numMod), numMod);
+        Polynomial<mpz_class> polyRaw2(stringToPolyVector1(polyStr2, polySize2, numMod), numMod);
+        Polynomial<mpz_class> polyMod(stringToPolyVector1(polyModStr, polyModSize, numMod), numMod);
 
         PolynomialField<mpz_class> poly1(numMod, polyMod, polyRaw1);
         PolynomialField<mpz_class> poly2(numMod, polyMod, polyRaw1);
@@ -191,9 +191,9 @@ polyFieldMultiplication(size_t &retSize, size_t polySize1, char **polyStr1, size
         mpz_class numMod;
         numMod.set_str(numModStr, 10);
 
-        Polynomial<mpz_class> polyRaw1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
-        Polynomial<mpz_class> polyRaw2(stringToPolyVector(polyStr2, polySize2, numMod), numMod);
-        Polynomial<mpz_class> polyMod(stringToPolyVector(polyModStr, polyModSize, numMod), numMod);
+        Polynomial<mpz_class> polyRaw1(stringToPolyVector1(polyStr1, polySize1, numMod), numMod);
+        Polynomial<mpz_class> polyRaw2(stringToPolyVector1(polyStr2, polySize2, numMod), numMod);
+        Polynomial<mpz_class> polyMod(stringToPolyVector1(polyModStr, polyModSize, numMod), numMod);
 
         PolynomialField<mpz_class> poly1(numMod, polyMod, polyRaw1);
         PolynomialField<mpz_class> poly2(numMod, polyMod, polyRaw1);
@@ -225,9 +225,9 @@ polyFieldDivision(size_t &retSize, size_t polySize1, char **polyStr1, size_t pol
         mpz_class numMod;
         numMod.set_str(numModStr, 10);
 
-        Polynomial<mpz_class> polyRaw1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
-        Polynomial<mpz_class> polyRaw2(stringToPolyVector(polyStr2, polySize2, numMod), numMod);
-        Polynomial<mpz_class> polyMod(stringToPolyVector(polyModStr, polyModSize, numMod), numMod);
+        Polynomial<mpz_class> polyRaw1(stringToPolyVector1(polyStr1, polySize1, numMod), numMod);
+        Polynomial<mpz_class> polyRaw2(stringToPolyVector1(polyStr2, polySize2, numMod), numMod);
+        Polynomial<mpz_class> polyMod(stringToPolyVector1(polyModStr, polyModSize, numMod), numMod);
 
         PolynomialField<mpz_class> poly1(numMod, polyMod, polyRaw1);
         PolynomialField<mpz_class> poly2(numMod, polyMod, polyRaw1);
@@ -259,8 +259,8 @@ polyFieldInversion(size_t &retSize, size_t polySize1, char **polyStr1,
         mpz_class numMod;
         numMod.set_str(numModStr, 10);
 
-        Polynomial<mpz_class> polyRaw1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
-        Polynomial<mpz_class> polyMod(stringToPolyVector(polyModStr, polyModSize, numMod), numMod);
+        Polynomial<mpz_class> polyRaw1(stringToPolyVector1(polyStr1, polySize1, numMod), numMod);
+        Polynomial<mpz_class> polyMod(stringToPolyVector1(polyModStr, polyModSize, numMod), numMod);
 
         PolynomialField<mpz_class> poly1(numMod, polyMod, polyRaw1);
 
