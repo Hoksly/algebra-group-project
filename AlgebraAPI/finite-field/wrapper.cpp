@@ -293,7 +293,7 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
  *    @return A string representation of the discrete square root of the given number modulo the
  * given modulus
  *    */
-
+/*
 char *
 discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
 {
@@ -329,7 +329,7 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
         return nullptr;
     }
 }
-
+*/
 /**
  *
  *    @brief Computes the discrete logarithm of a number to a given base modulo a given modulus
