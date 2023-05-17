@@ -204,10 +204,10 @@ inverse(char *num, char *mod, char *errorStr)
  * the number of factors.
  *    @throw std::length_error if the number of prime factors is greater than 127.
  *    */
-extern "C" char **
+extern "C" char *
 factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 {
-    char **resStr = nullptr;
+    char *resStr = nullptr;
     try
     {
         mpz_class numA, numMod;
@@ -218,14 +218,16 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 
         std::vector<modNum<mpz_class>> res = modular::factorize(a1);
 
-        resStr = new char *[res.size()];
-        size = res.size();
+        std::string strCombined;
 
-        for (int i = 0; i < res.size(); ++i)
+        for (modNum<mpz_class> num : res)
         {
-            resStr[i] = new char[MESSAGE_LEN];
-            strcpy(resStr[i], res[i].getValue().get_str().c_str());
+            strCombined += num.getValue().get_str();
+            strCombined += " ";
         }
+
+        char *resStr = new char[strCombined.size() + 1];
+        strcpy(resStr, strCombined.c_str());
     }
     catch (const std::exception &e)
     {
@@ -251,10 +253,10 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
  * @return A dynamically allocated 2D char array storing the factors obtained in string format.
  * @note The memory for the result array should be manually freed by the user using 'delete[]'.
  */
-extern "C" char **
+extern "C" char *
 factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
 {
-    char **resStr = nullptr;
+    char *resStr = nullptr;
     try
     {
         mpz_class numA, numMod;
@@ -265,14 +267,16 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
 
         std::vector<modNum<mpz_class>> res = modular::naiveFactorize(a1);
 
-        resStr = new char *[res.size()];
-        size = res.size();
+        std::string strCombined;
 
-        for (int i = 0; i < res.size(); ++i)
+        for (modNum<mpz_class> num : res)
         {
-            resStr[i] = new char[MESSAGE_LEN];
-            strcpy(resStr[i], res[i].getValue().get_str().c_str());
+            strCombined += num.getValue().get_str();
+            strCombined += " ";
         }
+
+        char *resStr = new char[strCombined.size() + 1];
+        strcpy(resStr, strCombined.c_str());
     }
     catch (const std::exception &e)
     {
