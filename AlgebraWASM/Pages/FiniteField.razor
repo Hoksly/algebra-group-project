@@ -230,6 +230,7 @@
 				<div class="wrapper">
 					<div class="input">
 						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter iterations">
 					</div>
 				</div>
 				<button class="custom-btn btn-15" @onclick="isPrime">isPrime</button>
@@ -760,7 +761,7 @@
 		{
 			NormalizeInputString();
 			byte[] aBytes = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] bBytes = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] bBytes = Encoding.ASCII.GetBytes(secondInputBox);
 			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
 			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
