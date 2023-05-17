@@ -3,9 +3,9 @@ namespace modular
 
 #ifndef ALGEBRA_INVERSION_AND_DIVISION
 #define ALGEBRA_INVERSION_AND_DIVISION
-#include "../mod-math.h"
-
 #include <iostream>
+
+#include "../mod-math.h"
 
     using namespace std;
 

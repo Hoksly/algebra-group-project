@@ -1,11 +1,11 @@
 #ifndef FACTOR
 #define FACTOR
 
-#include "../mod-math.h"
-
 #include <cassert>
 #include <iostream>
 #include <string>
+
+#include "../mod-math.h"
 
 using namespace std;
 using namespace modular;

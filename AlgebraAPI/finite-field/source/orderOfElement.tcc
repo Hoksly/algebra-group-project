@@ -1,9 +1,8 @@
+#include <map>
+#include <utility>
 
 #include "factorization.tcc"
 #include "mod-num.tcc"
-
-#include <map>
-#include <utility>
 
 namespace modular
 {

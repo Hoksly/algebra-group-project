@@ -1,8 +1,7 @@
-#include "../mod-math.h"
-
 #include <cmath>
 #include <map>
 #include <vector>
+#include "../mod-math.h"
 
 using namespace std;
 namespace modular

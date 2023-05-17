@@ -8,6 +8,7 @@
 #include <iostream>
 #include <limits>
 #include <stdexcept>
+#include <string.h>
 
 using namespace modular;
 const size_t MESSAGE_LEN = 200;
@@ -538,6 +539,10 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
     }
 
     return false;
+}
+
+int main()
+{
 }
 
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
