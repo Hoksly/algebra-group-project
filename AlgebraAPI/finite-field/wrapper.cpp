@@ -1,3 +1,5 @@
+#include "mod-math.h"
+#include "source/custom-hash.h"
 #include <gmpxx.h>
 #include <string.h>
 
@@ -5,10 +7,6 @@
 #include <iostream>
 #include <limits>
 #include <stdexcept>
-
-#include "mod-math.h"
-#include "source/custom-hash.h"
-
 using namespace modular;
 const size_t MESSAGE_LEN = 200;
 
@@ -329,7 +327,7 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
         return nullptr;
     }
 }
-*/
+
 /**
  *
  *    @brief Computes the discrete logarithm of a number to a given base modulo a given modulus
