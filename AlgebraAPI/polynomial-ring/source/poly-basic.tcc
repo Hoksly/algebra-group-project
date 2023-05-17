@@ -47,7 +47,7 @@ Polynomial<T>::der() const
 
     for (auto it = poly.begin(); it != poly.end(); ++it)
     {
-        new_koef = it->k().getValue() * it->deg();
+        new_koef = (it->k().getValue() * it->deg()) % this->numMod;
         new_pow = (it->deg() == 0 ? 0 : it->deg() - 1);
 
         if (new_koef > 0)
