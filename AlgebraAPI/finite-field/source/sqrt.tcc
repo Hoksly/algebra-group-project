@@ -1,13 +1,13 @@
+#include "factorization.tcc"
+#include "fpow.tcc"
+#include "isPrime.tcc"
+#include "mod-num.tcc"
+
 #include <algorithm>
 #include <cstdint>
 #include <map>
 #include <random>
 #include <set>
-
-#include "factorization.tcc"
-#include "fpow.tcc"
-#include "isPrime.tcc"
-#include "mod-num.tcc"
 
 namespace modular
 {
