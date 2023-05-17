@@ -1,11 +1,11 @@
 #ifndef FACTOR
 #define FACTOR
 
+#include "../mod-math.h"
+
 #include <cassert>
 #include <iostream>
 #include <string>
-
-#include "../mod-math.h"
 
 using namespace std;
 using namespace modular;
@@ -17,8 +17,8 @@ using namespace modular;
  *  @return GCD
  */
 template <typename T1, typename T2>
-T2
-gcd(T1 a, T2 b) {
+T2 gcd(T1 a, T2 b)
+{
     return b == 0 ? a : gcd(b, a % b);
 }
 
@@ -28,8 +28,8 @@ gcd(T1 a, T2 b) {
  *  @return true or false
  */
 template <typename T1>
-bool
-isPrimeSimple(T1 a) {
+bool isPrimeSimple(T1 a)
+{
     for (int i = 2; i <= sqrt(a); ++i)
         if (a % i == 0)
             return false;
@@ -43,8 +43,8 @@ isPrimeSimple(T1 a) {
  *  @return polynomial in x computed modulo mod
  */
 template <typename T1>
-T1
-F(T1 x, T1 mod) {
+T1 F(T1 x, T1 mod)
+{
     T1 a = rand() % 10;
     return (x * x + (1 + 2 * a)) % mod;
 }
@@ -57,8 +57,8 @@ F(T1 x, T1 mod) {
  *  @return factor
  */
 template <typename T1>
-T1
-pollardRhO(T1 n) {
+T1 pollardRhO(T1 n)
+{
     if (n % 2 == 0)
         return 2;
 
@@ -66,7 +66,8 @@ pollardRhO(T1 n) {
     T1 y = 2;
     T1 d = 1;
 
-    while (d == 1) {
+    while (d == 1)
+    {
         x = F(x, n);
         y = F(F(y, n), n);
         d = gcd(abs(x - y), n);
@@ -82,27 +83,29 @@ pollardRhO(T1 n) {
 template <typename T1>
 template <typename T2>
 std::vector<T2>
-modNum<T1>::Pollard<T2>::factor(T2 value) {
+modNum<T1>::Pollard<T2>::factor(T2 value)
+{
     if (value < 1)
         throw invalid_argument("value is less than 1");
     else if (value == 1)
         return vector<T2>{};
-    else if (isPrime(modNum<T2>(value, value+1), 10))
+    else if (isPrime(modNum<T2>(value, value + 1), 10))
         return vector<T2>{value};
 
     vector<T2> factors;
 
     T2 divisor = pollardRhO(value);
-    if (isPrime(modNum<T2>(value, value+1), 10))
+    if (isPrime(modNum<T2>(value, value + 1), 10))
         factors.push_back(divisor);
-    else {
+    else
+    {
         vector<T2> tmp = factor(divisor);
         factors.insert(factors.end(), tmp.begin(), tmp.end());
     }
 
     value = value / divisor;
 
-    if (isPrime(modNum<T2>(value, value+1), 10))
+    if (isPrime(modNum<T2>(value, value + 1), 10))
         factors.push_back(value);
     else
     {
@@ -121,7 +124,8 @@ modNum<T1>::Pollard<T2>::factor(T2 value) {
 template <typename T1>
 template <typename T2>
 std::vector<T2>
-modNum<T1>::Naive<T2>::factor(T2 m) {
+modNum<T1>::Naive<T2>::factor(T2 m)
+{
     if (m < 1)
         throw invalid_argument(" value is less than 1");
     else if (m == 1)
@@ -132,11 +136,15 @@ modNum<T1>::Naive<T2>::factor(T2 m) {
     vector<T2> factors;
 
     T2 p = 2;
-    while (p * p <= m) {
-        if (m % p == 0) {
+    while (p * p <= m)
+    {
+        if (m % p == 0)
+        {
             m = m / p;
             factors.push_back(p);
-        } else {
+        }
+        else
+        {
             p++;
         }
     }
@@ -149,14 +157,15 @@ modNum<T1>::Naive<T2>::factor(T2 m) {
 
 template <typename T1>
 std::vector<modNum<T1>>
-modular::factorize(modNum<T1> value) {
+modular::factorize(modNum<T1> value)
+{
     typename modNum<T1>::template Pollard<T1> strat;
     return value.factorize(&strat);
 }
 
 template <typename T1>
 std::vector<modNum<T1>>
-modular::naiveFactorize(modNum<T1> value)   // number factorization using naive algorithm
+modular::naiveFactorize(modNum<T1> value) // number factorization using naive algorithm
 {
     typename modNum<T1>::template Naive<T1> strat;
     return value.factorize(&strat);

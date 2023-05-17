@@ -1,11 +1,12 @@
-#include <cmath>
-#include <iostream>
-#include <unordered_map>
-#include <vector>
 
 #include "fpow.tcc"
 #include "isGenerator.tcc"
 #include "mod-num.tcc"
+
+#include <cmath>
+#include <iostream>
+#include <unordered_map>
+#include <vector>
 
 namespace modular
 {
