@@ -537,7 +537,9 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
 
     return false;
 }
-
+int main()
+{
+}
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
 
 /*
