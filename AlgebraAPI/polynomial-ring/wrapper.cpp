@@ -377,3 +377,18 @@ getRandomPoly(int n)
 
     return poly;
 }
+
+int main()
+{
+
+    char poly[] = "x^5";
+    size_t sz;
+    char **pp = polyParse(sz, poly);
+    size_t ret;
+    char mod[] = "5";
+    char *errstr = new char[100];
+    char pt[] = "10";
+    char *der = polyDerivative(ret, sz, pp, mod, errstr);
+
+    std::cout << std::string(der) << std::endl;
+}
