@@ -293,8 +293,8 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
  *    @return A string representation of the discrete square root of the given number modulo the
  * given modulus
  *    */
-/*
-char *
+
+extern "C" char *
 discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
 {
     try
