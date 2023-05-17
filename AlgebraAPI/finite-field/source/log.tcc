@@ -29,7 +29,7 @@ namespace modular
         if (!isGenerator(base))
             throw std::invalid_argument("Base of a logarithm must be a group Generator");
 
-        numT m = static_cast<numT>(std::sqrt(base.getMod()));
+        numT m = static_cast<numT>(std::sqrt(base.getMod().get_d()));
         while (m * m < base.getMod())
             m++;
 
