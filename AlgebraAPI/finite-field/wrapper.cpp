@@ -22,9 +22,11 @@ const size_t MESSAGE_LEN = 200;
  *    @note memory should be manualy freed by delete[]
  *    */
 extern "C" char *
-addition(char *a, char *b, char *mod, char *errorStr) {
+addition(char *a, char *b, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numB, numMod;
         numA.set_str(a, 10), numB.set_str(b, 10), numMod.set_str(mod, 10);
 
@@ -34,7 +36,9 @@ addition(char *a, char *b, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
@@ -51,9 +55,11 @@ addition(char *a, char *b, char *mod, char *errorStr) {
  *    @note memory should be manualy freed by delete[]
  *    */
 extern "C" char *
-subtraction(char *a, char *b, char *mod, char *errorStr) {
+subtraction(char *a, char *b, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numB, numMod;
         numA.set_str(a, 10), numB.set_str(b, 10), numMod.set_str(mod, 10);
 
@@ -64,7 +70,9 @@ subtraction(char *a, char *b, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
@@ -81,9 +89,11 @@ subtraction(char *a, char *b, char *mod, char *errorStr) {
  *    @note memory should be manualy freed by delete[]
  */
 extern "C" char *
-multiplication(char *a, char *b, char *mod, char *errorStr) {
+multiplication(char *a, char *b, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numB, numMod;
 
         numA.set_str(a, 10), numB.set_str(b, 10), numMod.set_str(mod, 10);
@@ -95,7 +105,9 @@ multiplication(char *a, char *b, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
@@ -112,9 +124,11 @@ multiplication(char *a, char *b, char *mod, char *errorStr) {
  *    @note memory should be manualy freed by delete[]
  */
 extern "C" char *
-division(char *a, char *b, char *mod, char *errorStr) {
+division(char *a, char *b, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numB, numMod;
         numA.set_str(a, 10), numB.set_str(b, 10), numMod.set_str(mod, 10);
 
@@ -125,15 +139,19 @@ division(char *a, char *b, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
     return resStr;
 }
 extern "C" char *
-fastPow(char *a, char *degree, char *mod, char *errorStr) {
+fastPow(char *a, char *degree, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numDegree, numMod;
         numA.set_str(a, 10), numDegree.set_str(degree, 10), numMod.set_str(mod, 10);
 
@@ -143,16 +161,20 @@ fastPow(char *a, char *degree, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
     return resStr;
 }
 extern "C" char *
-inverse(char *num, char *mod, char *errorStr) {
+inverse(char *num, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod;
         numA.set_str(num, 10), numMod.set_str(mod, 10);
 
@@ -162,7 +184,9 @@ inverse(char *num, char *mod, char *errorStr) {
         char *resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
         return resStr;
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
@@ -181,9 +205,11 @@ inverse(char *num, char *mod, char *errorStr) {
  *    @throw std::length_error if the number of prime factors is greater than 127.
  *    */
 extern "C" char **
-factorizePolard(size_t &size, char *num, char *mod, char *errorStr) {
+factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
+{
     char **resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod;
         numA.set_str(num, 10);
         numMod.set_str(mod, 10);
@@ -195,11 +221,14 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr) {
         resStr = new char *[res.size()];
         size = res.size();
 
-        for (int i = 0; i < res.size(); ++i) {
+        for (int i = 0; i < res.size(); ++i)
+        {
             resStr[i] = new char[MESSAGE_LEN];
             strcpy(resStr[i], res[i].getValue().get_str().c_str());
         }
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
@@ -223,9 +252,11 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr) {
  * @note The memory for the result array should be manually freed by the user using 'delete[]'.
  */
 extern "C" char **
-factorizeSimple(size_t &size, char *num, char *mod, char *errorStr) {
+factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
+{
     char **resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod;
         numA.set_str(num, 10);
         numMod.set_str(mod, 10);
@@ -237,11 +268,14 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr) {
         resStr = new char *[res.size()];
         size = res.size();
 
-        for (int i = 0; i < res.size(); ++i) {
+        for (int i = 0; i < res.size(); ++i)
+        {
             resStr[i] = new char[MESSAGE_LEN];
             strcpy(resStr[i], res[i].getValue().get_str().c_str());
         }
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
@@ -257,8 +291,10 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr) {
  *    */
 
 char *
-discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr) {
-    try {
+discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
+{
+    try
+    {
         mpz_class numA, numMod;
 
         numA.set_str(num, 10);
@@ -272,7 +308,8 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr) {
 
         std::string strCombined;
 
-        for (mpz_class num : res) {
+        for (mpz_class num : res)
+        {
             strCombined += num.get_str();
             strCombined += " ";
         }
@@ -281,8 +318,9 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr) {
         strcpy(resStr, strCombined.c_str());
 
         return resStr;
-
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
         return nullptr;
     }
@@ -298,9 +336,11 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr) {
  *    @return a string representation of the computed logarithm
  *    */
 extern "C" char *
-discreteLog(char *num, char *base, char *mod, char *errorStr) {
+discreteLog(char *num, char *base, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numB, numMod;
 
         numA.set_str(num, 10);
@@ -315,8 +355,9 @@ discreteLog(char *num, char *base, char *mod, char *errorStr) {
         res = modular::log(a1, b1);
         resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.get_str().c_str());
-
-    } catch (const std::exception &ex) {
+    }
+    catch (const std::exception &ex)
+    {
         strcpy(errorStr, ex.what());
     }
 
@@ -333,9 +374,11 @@ discreteLog(char *num, char *base, char *mod, char *errorStr) {
  *  @return string representation of the order of the element
  */
 extern "C" char *
-orderOfElement(char *num, char *mod, char *errorStr) {
+orderOfElement(char *num, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod, res;
 
         numA.set_str(num, 10);
@@ -348,7 +391,9 @@ orderOfElement(char *num, char *mod, char *errorStr) {
 
         resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.get_str().c_str());
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
@@ -363,8 +408,10 @@ orderOfElement(char *num, char *mod, char *errorStr) {
  *    @return true if num is a generator, false otherwise
  *    */
 extern "C" bool
-isGenerator(char *num, char *mod, char *errorStr) {
-    try {
+isGenerator(char *num, char *mod, char *errorStr)
+{
+    try
+    {
         char *resStr = nullptr;
         mpz_class numA, numMod, res;
 
@@ -375,7 +422,9 @@ isGenerator(char *num, char *mod, char *errorStr) {
         modNum<mpz_class> a1(numA, numMod);
 
         return modular::isGenerator(a1);
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
     return false;
@@ -393,9 +442,11 @@ isGenerator(char *num, char *mod, char *errorStr) {
  *    */
 
 extern "C" char *
-EulerFunction(char *num, char *mod, char *errorStr) {
+EulerFunction(char *num, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod;
         numA.set_str(num, 10), numMod.set_str(mod, 10);
 
@@ -405,8 +456,9 @@ EulerFunction(char *num, char *mod, char *errorStr) {
 
         resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.getValue().get_str().c_str());
-
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
@@ -423,9 +475,11 @@ EulerFunction(char *num, char *mod, char *errorStr) {
  */
 
 extern "C" char *
-CarmichaelFunction(char *num, char *mod, char *errorStr) {
+CarmichaelFunction(char *num, char *mod, char *errorStr)
+{
     char *resStr = nullptr;
-    try {
+    try
+    {
         mpz_class numA, numMod;
 
         numA.set_str(num, 10);
@@ -439,8 +493,9 @@ CarmichaelFunction(char *num, char *mod, char *errorStr) {
 
         resStr = new char[MESSAGE_LEN];
         strcpy(resStr, res.get_str().c_str());
-
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
@@ -458,8 +513,10 @@ CarmichaelFunction(char *num, char *mod, char *errorStr) {
  *   */
 
 extern "C" bool
-isPrime(char *num, char *mod, char *iterations, char *errorStr) {
-    try {
+isPrime(char *num, char *mod, char *iterations, char *errorStr)
+{
+    try
+    {
         mpz_class numA, numMod, res;
 
         numA.set_str(num, 10);
@@ -470,17 +527,13 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr) {
         modNum<mpz_class> a1(numA, numMod);
 
         return modular::isPrime(a1, iters);
-
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e)
+    {
         strcpy(errorStr, e.what());
     }
 
     return false;
-}
-
-int
-main() {
-    std::cout << "RES: " << modular::log(modNum<int>(57, 113), modNum<int>(3, 113)) << std::endl;
 }
 
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
