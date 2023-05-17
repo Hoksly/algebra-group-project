@@ -7,12 +7,15 @@
 
 using namespace modular;
 
-TEST_CASE("IRREDUCIBILITY_TEST"){
+TEST_CASE("IRREDUCIBILITY_TEST")
+{
     Polynomial<long long> poly(static_cast<long long>(898181));
-    Node<long long> one (modNum<long long>(1,898181), 2);
-    Node<long long> two (modNum<long long>(5,898181), 1);
-    Node<long long> three (modNum<long long>(10,898181), 0);
+    Node<long long> one(modNum<long long>(1, 898181), 2);
+    Node<long long> two(modNum<long long>(5, 898181), 1);
+    Node<long long> three(modNum<long long>(10, 898181), 0);
 
-    poly.addNode(one); poly.addNode(two); poly.addNode(three);
+    poly.addNode(one);
+    poly.addNode(two);
+    poly.addNode(three);
     CHECK_EQ(irreducibilityTest<long long>(poly), false);
 }
