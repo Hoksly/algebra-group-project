@@ -1,11 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <random>
 
 #include "../../../doctest.h"
 #include "../../mod-math.h"
+#include <random>
 #include "utils.h"
 
-TEST_CASE("Naive tests") {
+TEST_CASE("Naive tests")
+{
     int num = 7;
     int mod = 31;
 
@@ -17,8 +18,10 @@ TEST_CASE("Naive tests") {
     order = orderOfElement(modNum<int>(num, mod));
 }
 
-TEST_CASE("Random tests") {
-    for (int i = 0; i < 1000; ++i) {
+TEST_CASE("Random tests")
+{
+    for (int i = 0; i < 1000; ++i)
+    {
         int num = getRandomNumber(1, 10000);
         int mod = getRandomNumber(10000, 20000);
 

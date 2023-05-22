@@ -30,7 +30,7 @@ namespace AlgebraWASM.Client
 		public static extern unsafe byte** factorizeSimple(ref int size, byte* num, byte* mod, byte* errorStr);
 
 		[DllImport("finite-field-wrapper")]
-		public static extern unsafe byte* discreteSqrt(ref int size, byte* num, byte* mod, byte* errStr);
+		public static extern unsafe byte** discreteSqrt(byte* num, byte* mod, byte* errorStr);
 
 		[DllImport("finite-field-wrapper")]
         public static unsafe extern byte* discreteLog(byte* num, byte* basa, byte* mod, byte* errStr);
@@ -82,26 +82,5 @@ namespace AlgebraWASM.Client
 
 		[DllImport("poly-ring-wrapper")]
 		public static unsafe extern byte** polyParse(ref int returnSize, byte* inputPolyString);
-	}
-
-	public static class PolyFieldMethods
-	{
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte* polyFieldAddition(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
-
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte* polyFieldSubstruction(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
-
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte* polyFieldMultiplication(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
-
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte* polyFieldDivision(ref int returnSize, int polySize1, byte** polyStr1, int polySize2, byte** polyStr2, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
-
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte* polyFieldInversion(ref int returnSize, int polySize1, byte** polyStr1, int polyModSize, byte** powModStr, byte* numModStr, byte* errorStr);
-
-		[DllImport("poly-field-wrapper")]
-		public static unsafe extern byte** polyParse1(ref int returnSize, byte* inputPolyString);
 	}
 }

@@ -4,7 +4,6 @@
 @using AlgebraWASM.Client;
 @using System.Runtime.InteropServices;
 @using System.Text.RegularExpressions;
-@inject NavigationManager NavigationManager
 <style>
 	html {
 		font-size: 125%;
@@ -59,7 +58,6 @@
 				<button class="custom-btn btn-15" @onclick="Add">Add</button>
 				<button class="custom-btn btn-15" @onclick="Subtract">Subtract</button>
 				<button class="custom-btn btn-15" @onclick="Multiply">Multiply</button>
-				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Norm</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -81,7 +79,7 @@
 						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
 					</div>
 				</div>
-				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Calculate</button>
+				<button class="custom-btn btn-15" @onclick="Calculate">Calculate</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -102,7 +100,7 @@
 						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter a number">
 					</div>
 				</div>
-				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Calculate</button>
+				<button class="custom-btn btn-15" @onclick="Calculate">Calculate</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -127,7 +125,7 @@
 				<button class="custom-btn btn-15" @onclick="Add">Add</button>
 				<button class="custom-btn btn-15" @onclick="Subtract">Subtract</button>
 				<button class="custom-btn btn-15" @onclick="Multiply">Multiply</button>
-				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Norm</button>
+				<button class="custom-btn btn-15" @onclick="Norm">Norm</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -149,7 +147,6 @@
 					</div>
 				</div>
 				<button class="custom-btn btn-15" @onclick="Inverse">Inverse</button>
-				<button class="custom-btn btn-15" @onclick="Division">Division</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -170,7 +167,7 @@
 						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter number">
 					</div>
 				</div>
-				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Order</button>
+				<button class="custom-btn btn-15" @onclick="Order">Order</button>
 				@if (!string.IsNullOrWhiteSpace(result))
 				{
 					<div class="wrapper">
@@ -198,12 +195,6 @@
 	[Required] public string firstInputBox { get; set; } = "";
 	[Required] public string secondInputBox { get; set; } = "";
 
-	private void RickRoll()
-	{
-		string url = $"https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-		NavigationManager.NavigateTo(url, forceLoad: true);
-	}
-
 	private void SelectedMethod(ChangeEventArgs e)
 	{
 		result = "";
@@ -217,201 +208,199 @@
 	void NormalizeInputString()
 	{
 		coefModule = Regex.Replace(coefModule, "[^0-9]", "");
-		powModule = Regex.Replace(powModule, "[^0-9x+\\-*^]", "");
+		powModule = Regex.Replace(powModule, "[^0-9]", "");
 		firstInputBox = Regex.Replace(firstInputBox, "[^0-9x+\\-*^]", "");
 		secondInputBox = Regex.Replace(secondInputBox, "[^0-9x+\\-*^]", "");
 
 
 		if (string.IsNullOrWhiteSpace(coefModule)) coefModule = "1";
-		if (string.IsNullOrWhiteSpace(powModule)) powModule = "x+3";
+		if (string.IsNullOrWhiteSpace(powModule)) secondInputBox = "1";
 		if (string.IsNullOrWhiteSpace(firstInputBox)) firstInputBox = "x+1";
 		if (string.IsNullOrWhiteSpace(secondInputBox)) secondInputBox = "x+2";
 	}
 
-	unsafe void Add()
+	private unsafe void Add()
 	{
-		try
-		{
-			NormalizeInputString();
-			int size1 = 0, size2 = 0, polyModSize = 0;
-			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+		//try
+		//{
+		//	int size1, size2;
+		//	var aBytes = PolinomialParser.ParsePolynomial(firstInputBox, out size1);
+		//	var bBytes = PolinomialParser.ParsePolynomial(secondInputBox, out size2);
+		//	byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+		//	byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* polyModPtr = polyModBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			fixed (byte* str1Ptr = str1)
-			fixed (byte* str2Ptr = str2)
-			{
-				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
-				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
-				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+		//	int size = 0;
 
-				int size = 0;
+		//	fixed (byte* modPtr = modBytes)
+		//	fixed (byte* errStrPtr = errorStrBytes)
+		//	{
+		//		byte** resultPtr = PolyRingMethods.polyAddition(ref size, size1, aBytes, size2, bBytes, modPtr, errStrPtr);
 
-				byte* resultPtr = PolyFieldMethods.polyFieldAddition(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+		//		List<string> resultList = new List<string>();
+		//		int offset = 0;
+		//		while (true)
+		//		{
+		//			IntPtr currentPtr = new IntPtr(resultPtr[offset]);
+		//			if (currentPtr == IntPtr.Zero)
+		//				break;
 
+		//			byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
+		//			resultList.Add(Encoding.ASCII.GetString(currentBytes));
+		//			offset++;
+		//		}
 
-				byte[] resultBytes = new byte[size];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
+		//		string[] resultArray = resultList.ToArray();
+		//		Dictionary<string, int> resultDct = new Dictionary<string, int>();
+
+		//		foreach (string number in resultArray)
+		//		{
+		//			if (resultDct.ContainsKey(number))
+		//				resultDct[number]++;
+		//			else
+		//				resultDct[number] = 1;
+		//		}
+
+		//		string res = "";
+		//		foreach (var kvp in resultDct)
+		//		{
+		//			res += "Key: " + kvp.Key + " Value: " + kvp.Value + '\n';
+		//		}
+		//		result = res;
+		//	}
+		//}
+		//catch (Exception ex)
+		//{
+		//	Console.WriteLine(ex.Message);
+		//}
 	}
 
-	unsafe void Subtract()
+	private unsafe void Subtract()
 	{
-		try
-		{
-			NormalizeInputString();
-			int size1 = 0, size2 = 0, polyModSize = 0;
-			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+		//try
+		//{
+		//	int size1, size2;
+		//	var aBytes = PolinomialParser.ParsePolynomial(firstInputBox, out size1);
+		//	var bBytes = PolinomialParser.ParsePolynomial(secondInputBox, out size2);
+		//	byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+		//	byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* polyModPtr = polyModBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			fixed (byte* str1Ptr = str1)
-			fixed (byte* str2Ptr = str2)
-			{
-				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
-				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
-				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+		//	int size = 0;
 
-				int size = 0;
+		//	fixed (byte* modPtr = modBytes)
+		//	fixed (byte* errStrPtr = errorStrBytes)
+		//	{
+		//		byte** resultPtr = PolyRingMethods.polySubstruction(ref size, size1, aBytes, size2, bBytes, modPtr, errStrPtr);
 
-				byte* resultPtr = PolyFieldMethods.polyFieldSubstruction(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+		//		List<string> resultList = new List<string>();
+		//		int offset = 0;
+		//		while (true)
+		//		{
+		//			IntPtr currentPtr = new IntPtr(resultPtr[offset]);
+		//			if (currentPtr == IntPtr.Zero)
+		//				break;
 
+		//			byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
+		//			resultList.Add(Encoding.ASCII.GetString(currentBytes));
+		//			offset++;
+		//		}
 
-				byte[] resultBytes = new byte[size];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
+		//		string[] resultArray = resultList.ToArray();
+		//		Dictionary<string, int> resultDct = new Dictionary<string, int>();
+
+		//		foreach (string number in resultArray)
+		//		{
+		//			if (resultDct.ContainsKey(number))
+		//				resultDct[number]++;
+		//			else
+		//				resultDct[number] = 1;
+		//		}
+
+		//		string res = "";
+		//		foreach (var kvp in resultDct)
+		//		{
+		//			res += "Key: " + kvp.Key + " Value: " + kvp.Value + '\n';
+		//		}
+		//		result = res;
+		//	}
+		//}
+		//catch (Exception ex)
+		//{
+		//	Console.WriteLine(ex.Message);
+		//}
 	}
 
-	unsafe void Multiply()
+	private unsafe void Multiply()
 	{
-		try
-		{
-			NormalizeInputString();
-			int size1 = 0, size2 = 0, polyModSize = 0;
-			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+		//try
+		//{
+		//	int size1, size2;
+		//	var aBytes = PolinomialParser.ParsePolynomial(firstInputBox, out size1);
+		//	var bBytes = PolinomialParser.ParsePolynomial(secondInputBox, out size2);
+		//	byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+		//	byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* polyModPtr = polyModBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			fixed (byte* str1Ptr = str1)
-			fixed (byte* str2Ptr = str2)
-			{
-				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
-				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
-				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+		//	int size = 0;
 
-				int size = 0;
+		//	fixed (byte* modPtr = modBytes)
+		//	fixed (byte* errStrPtr = errorStrBytes)
+		//	{
+		//		byte** resultPtr = PolyRingMethods.polyMultiplication(ref size, size1, aBytes, size2, bBytes, modPtr, errStrPtr);
 
-				byte* resultPtr = PolyFieldMethods.polyFieldMultiplication(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+		//		List<string> resultList = new List<string>();
+		//		int offset = 0;
+		//		while (true)
+		//		{
+		//			IntPtr currentPtr = new IntPtr(resultPtr[offset]);
+		//			if (currentPtr == IntPtr.Zero)
+		//				break;
 
+		//			byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
+		//			resultList.Add(Encoding.ASCII.GetString(currentBytes));
+		//			offset++;
+		//		}
 
-				byte[] resultBytes = new byte[size];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
+		//		string[] resultArray = resultList.ToArray();
+		//		Dictionary<string, int> resultDct = new Dictionary<string, int>();
+
+		//		foreach (string number in resultArray)
+		//		{
+		//			if (resultDct.ContainsKey(number))
+		//				resultDct[number]++;
+		//			else
+		//				resultDct[number] = 1;
+		//		}
+
+		//		string res = "";
+		//		foreach (var kvp in resultDct)
+		//		{
+		//			res += "Key: " + kvp.Key + " Value: " + kvp.Value + '\n';
+		//		}
+		//		result = res;
+		//	}
+		//}
+		//catch (Exception ex)
+		//{
+		//	Console.WriteLine(ex.Message);
+		//}
 	}
 
-	unsafe void Inverse()
+	private void Calculate()
 	{
-		try
-		{
-			NormalizeInputString();
-			int size1 = 0, polyModSize = 0;
-			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
-
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* polyModPtr = polyModBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			fixed (byte* str1Ptr = str1)
-			{
-				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
-				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
-
-				int size = 0;
-
-				byte* resultPtr = PolyFieldMethods.polyFieldInversion(ref size, size1, parsedPoly1, polyModSize, polyModparsed, modPtr, errStrPtr);
-
-
-				byte[] resultBytes = new byte[size];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
+		//MethodWrapper.addition();
 	}
 
-	unsafe void Division()
+	private void Norm()
 	{
-		try
-		{
-			NormalizeInputString();
-			int size1 = 0, size2 = 0, polyModSize = 0;
-			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+		//MethodWrapper.addition();
+	}
 
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* polyModPtr = polyModBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			fixed (byte* str1Ptr = str1)
-			fixed (byte* str2Ptr = str2)
-			{
-				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
-				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
-				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+	private void Inverse()
+	{
+		//MethodWrapper.addition();
+	}
 
-				int size = 0;
-
-				byte* resultPtr = PolyFieldMethods.polyFieldDivision(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
-
-
-				byte[] resultBytes = new byte[size];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
+	private void Order()
+	{
+		//MethodWrapper.addition();
 	}
 }
