@@ -11,7 +11,7 @@ using namespace std;
 using namespace modular;
 
 /**
- *  @brief Calculating GCD
+ *  @brief Calculating Simple GCD
  *  @param a first number
  *  @param b second number
  *  @return GCD
