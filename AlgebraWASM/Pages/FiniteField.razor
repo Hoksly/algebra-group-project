@@ -139,10 +139,23 @@
 			break;
 		case "6":
 			<div>
-				<label>Someone didn't implemented it yet on api :)</label>
-				@*				<input type="text" @bind-value="@firstInputBox" />
-		<button @onclick="QuadSqrt"> QuadSqrt </button>
-		<p>Result: @result</p>*@
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="DscSqrt">DiscreteSqrt</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
 			</div>
 			break;
 		case "7":
@@ -217,7 +230,7 @@
 				<div class="wrapper">
 					<div class="input">
 						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
-						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter iterations">
 					</div>
 				</div>
 				<button class="custom-btn btn-15" @onclick="isPrime">isPrime</button>
@@ -472,12 +485,11 @@
 			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
 			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-			int size = 0;
-
 			fixed (byte* aPtr = aBytes)
 			fixed (byte* modPtr = modBytes)
 			fixed (byte* errStrPtr = errorStrBytes)
 			{
+				int size = 0;
 				byte** resultPtr = FiniteFieldMethods.factorizePolard(ref size, aPtr, modPtr, errStrPtr);
 
 				List<string> resultList = new List<string>();
@@ -507,7 +519,7 @@
 				string res = "";
 				foreach (var kvp in resultDct)
 				{
-					res += "Key: " + kvp.Key + " Value: " + kvp.Value + '\n';
+					res += "Value: " + kvp.Key + " Quantity: " + kvp.Value + '\n';
 				}
 				result = res;
 			}
@@ -527,14 +539,12 @@
 			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
 			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-			int size = 0;
-
 			fixed (byte* aPtr = aBytes)
 			fixed (byte* modPtr = modBytes)
 			fixed (byte* errStrPtr = errorStrBytes)
 			{
+				int size = 0;
 				byte** resultPtr = FiniteFieldMethods.factorizeSimple(ref size, aPtr, modPtr, errStrPtr);
-
 				List<string> resultList = new List<string>();
 				int offset = 0;
 				while (true)
@@ -550,7 +560,6 @@
 
 				string[] resultArray = resultList.ToArray();
 				Dictionary<string, int> resultDct = new Dictionary<string, int>();
-
 				for (int i = 0; i < size; ++i)
 				{
 					if (resultDct.ContainsKey(resultArray[i]))
@@ -562,7 +571,7 @@
 				string res = "";
 				foreach (var kvp in resultDct)
 				{
-					res += "Key: " + kvp.Key + " Value: " + kvp.Value + '\n';
+					res += "Value: " + kvp.Key + " Quantity: " + kvp.Value + '\n';
 				}
 				result = res;
 			}
@@ -573,28 +582,32 @@
 		}
 	}
 
-	//private unsafe void QuadSqrt()
-	//{
-	//	try
-	//	{
-	//		byte[] aBytes = Encoding.ASCII.GetBytes(firstInputBox);
-	//		byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-	//		byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+	private unsafe void DscSqrt()
+	{
+		try
+		{
+			NormalizeInputString();
+			byte[] aBytes = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
-	//		int size = 0;
+			fixed (byte* aPtr = aBytes)
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			{
+				int size = 0;
+				byte* resultPtr = FiniteFieldMethods.discreteSqrt(ref size, aPtr, modPtr, errStrPtr);
 
-	//		fixed (byte* aPtr = aBytes)
-	//		fixed (byte* modPtr = modBytes)
-	//		fixed (byte* errStrPtr = errorStrBytes)
-	//		{
-	//			byte** resultPtr = MethodWrapper.discreteSqrt(aPtr, modPtr, errStrPtr);
-	//		}
-	//	}
-	//	catch (Exception ex)
-	//	{
-	//		Console.WriteLine(ex.Message);
-	//	}
-	//}
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
 
 	private unsafe void DscLog()
 	{
@@ -748,7 +761,7 @@
 		{
 			NormalizeInputString();
 			byte[] aBytes = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] bBytes = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] bBytes = Encoding.ASCII.GetBytes(secondInputBox);
 			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
 			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
 
