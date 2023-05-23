@@ -83,17 +83,16 @@ namespace modular
         Factorization<T> *levelStrat;
 
     public:
-        std::vector<modNum<T>> factorize(Factorization<T> *strat)
+        void setStrat(Factorization<T> *strat)
         {
             levelStrat = strat;
-            std::vector<modNum<T>> res;
+        }
+
+        std::vector<T> factorize()
+        {
             std::vector<T> factors = levelStrat->factor(this->getValue());
 
-            T mod = this->getMod();
-            for (int i = 0; i < factors.size(); i++)
-                res.push_back(modNum<T>(factors[i], mod));
-
-            return res;
+            return factors;
         }
 
         T gcdExtended(T a, T b, T *x, T *y) const;
