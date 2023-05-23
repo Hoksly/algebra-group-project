@@ -155,19 +155,48 @@ modNum<T1>::Naive<T2>::factor(T2 m)
     return factors;
 }
 
+// Adapter pattern
+template <typename T1>
+class Adapter : public modNum<T1>
+{
+    public:
+    using modNum<T1>::modNum;
+
+    std::vector<modNum<T1>> factorizeMod(typename modNum<T1>::template Factorization<T1> *strat)
+    {
+        this->setStrat(strat);
+
+        std::vector<T1> factors = this->factorize();
+    
+        std::vector<modNum<T1>> res;
+        T1 mod = this->getMod();
+        for (int i = 0; i < factors.size(); i++)
+            res.push_back(modNum<T1>(factors[i], mod));
+
+        return res;
+    }  
+};
+
+
 template <typename T1>
 std::vector<modNum<T1>>
-modular::factorize(modNum<T1> value)
-{
-    typename modNum<T1>::template Pollard<T1> strat;
-    return value.factorize(&strat);
+modular::factorize(modNum<T1> value) {
+    typename modNum<T1>::template Naive<T1> strat;
+    
+    Adapter<T1> adapter(value.getValue(), value.getMod());
+    std::vector<modNum<T1>> res = adapter.factorizeMod(&strat);
+
+    return res;
 }
 
 template <typename T1>
 std::vector<modNum<T1>>
-modular::naiveFactorize(modNum<T1> value) // number factorization using naive algorithm
+modular::naiveFactorize(modNum<T1> value)   // number factorization using naive algorithm
 {
     typename modNum<T1>::template Naive<T1> strat;
-    return value.factorize(&strat);
+    Adapter<T1> adapter(value.getValue(), value.getMod());
+    std::vector<modNum<T1>> res = adapter.factorizeMod(&strat);
+
+    return res;
 }
 #endif
