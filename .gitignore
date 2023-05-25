@@ -396,3 +396,4 @@ FodyWeavers.xsd
 *.out
 *.app
 .vscode/settings.json
+.vscode/tasks.json
