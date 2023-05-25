@@ -208,7 +208,6 @@ inverse(char *num, char *mod, char *errorStr)
 extern "C" char *
 factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 {
-    char *resStr = nullptr;
     try
     {
         mpz_class numA, numMod;
@@ -229,13 +228,18 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 
         char *resStr = new char[strCombined.size() + 1];
         strcpy(resStr, strCombined.c_str());
+
+        size = strCombined.size();
+        resStr[strCombined.size()] = '\0';
+
+        return resStr;
     }
     catch (const std::exception &e)
     {
         strcpy(errorStr, e.what());
     }
 
-    return resStr;
+    return nullptr;
 }
 
 /**
@@ -257,7 +261,6 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 extern "C" char *
 factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
 {
-    char *resStr = nullptr;
     try
     {
         mpz_class numA, numMod;
@@ -277,14 +280,19 @@ factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
         }
 
         char *resStr = new char[strCombined.size() + 1];
+
+        resStr[strCombined.size()] = '\0';
+        size = strCombined.size();
+
         strcpy(resStr, strCombined.c_str());
+        return resStr;
     }
     catch (const std::exception &e)
     {
         strcpy(errorStr, e.what());
     }
 
-    return resStr;
+    return nullptr;
 }
 /**
  *
@@ -539,10 +547,6 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
     }
 
     return false;
-}
-
-int main()
-{
 }
 
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
