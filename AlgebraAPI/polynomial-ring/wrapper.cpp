@@ -10,7 +10,6 @@
 #include <utility>
 #include <vector>
 
-
 const size_t MESSAGE_LEN = 200;
 
 vector<std::pair<mpz_class, size_t>>
@@ -58,9 +57,11 @@ removeSpaces(std::string str)
     return str;
 }
 
-std::string ReplaceAll(std::string str, const std::string& from, const std::string& to) {
+std::string ReplaceAll(std::string str, const std::string &from, const std::string &to)
+{
     size_t start_pos = 0;
-    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+    while ((start_pos = str.find(from, start_pos)) != std::string::npos)
+    {
         str.replace(start_pos, from.length(), to);
         start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
     }
@@ -70,7 +71,7 @@ std::string ReplaceAll(std::string str, const std::string& from, const std::stri
 std::vector<std::pair<std::string, std::string>>
 convertPolynomial(std::string polynomial)
 {
-        polynomial = removeSpaces(polynomial);
+    polynomial = removeSpaces(polynomial);
     std::vector<std::pair<std::string, std::string>> result;
     std::string newPol = ReplaceAll(polynomial, "-", " +-");
     std::stringstream ss(newPol);
@@ -393,27 +394,4 @@ getRandomPoly(int n)
     }
 
     return poly;
-}
-
-int main()
-{
-
-    char poly[] = "x^5 + x^4 + x^3 + x^2 + x + 1";
-    size_t sz;
-    char **pp = polyParse(sz, poly);
-
-    for (int i = 0; i < sz * 2; ++i)
-    {
-        std::cout << std::string(pp[i]) << std::endl;
-    }
-    size_t ret;
-
-    char mod[] = "5";
-    char *errstr = new char[100];
-
-    char pt[] = "10";
-
-    char *der = polyDerivative(ret, sz, pp, mod, errstr);
-
-    std::cout << std::string(der) << std::endl;
 }
