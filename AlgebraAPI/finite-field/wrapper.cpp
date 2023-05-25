@@ -369,41 +369,41 @@ discreteLog(char *num, char *base, char *mod, char *errorStr)
     return resStr;
 }
 
-/**
- *
- *   @brief Calculates the order of an element in a finite field.
- *   Given an integer number 'num' and a modulus 'mod', calculates the smallest positive
- *   integer 'k' such that num^k = 1 (mod mod). The function returns the order 'k' as a string.
- *  @param num base number
- *  @param mod modulus
- *  @return string representation of the order of the element
- */
-extern "C" char *
-orderOfElement(char *num, char *mod, char *errorStr)
-{
-    char *resStr = nullptr;
-    try
-    {
-        mpz_class numA, numMod, res;
+// /**
+//  *
+//  *   @brief Calculates the order of an element in a finite field.
+//  *   Given an integer number 'num' and a modulus 'mod', calculates the smallest positive
+//  *   integer 'k' such that num^k = 1 (mod mod). The function returns the order 'k' as a string.
+//  *  @param num base number
+//  *  @param mod modulus
+//  *  @return string representation of the order of the element
+//  */
+// extern "C" char *
+// orderOfElement(char *num, char *mod, char *errorStr)
+// {
+//     char *resStr = nullptr;
+//     try
+//     {
+//         mpz_class numA, numMod, res;
 
-        numA.set_str(num, 10);
+//         numA.set_str(num, 10);
 
-        numMod.set_str(mod, 10);
+//         numMod.set_str(mod, 10);
 
-        modNum<mpz_class> a1(numA, numMod);
+//         modNum<mpz_class> a1(numA, numMod);
 
-        res = modular::orderOfElement(a1);
+//         res = modular::orderOfElement(a1);
 
-        resStr = new char[MESSAGE_LEN];
-        strcpy(resStr, res.get_str().c_str());
-    }
-    catch (const std::exception &e)
-    {
-        strcpy(errorStr, e.what());
-    }
+//         resStr = new char[MESSAGE_LEN];
+//         strcpy(resStr, res.get_str().c_str());
+//     }
+//     catch (const std::exception &e)
+//     {
+//         strcpy(errorStr, e.what());
+//     }
 
-    return resStr;
-}
+//     return resStr;
+// }
 
 /**
  *
