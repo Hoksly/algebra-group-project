@@ -1,19 +1,20 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "../log.tcc"
 
+#include <gmpxx.h>
+#include "../custom-hash.h"
 #include <random>
 
-#include "../../../doctest.h"
 #include "../../mod-math.h"
 #include "utils.h"
 
-using namespace modular;
+int main()
+{
 
-TEST_CASE("tmp") {
-    int mod = 113;
-    for (int i = 0; i < 100; ++i) {
-        modNum<int> a(getRandomNumber(1, 112), mod), b(getRandomNumber(1, 112), mod);
+    mpz_class a = 3;
+    mpz_class b = 5;
+    mpz_class mod = 103;
 
-        CHECK_EQ(a.getValue(), fpow(b, modular::log(a, b)).getValue());
-    }
+    mpz_class lg = modular::log(modular::modNum<mpz_class>(a, mod), modular::modNum<mpz_class>(b, mod));
+
+    std::cout << lg.get_str() << std::endl;
+    return 0;
 }

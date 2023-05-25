@@ -549,16 +549,6 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
     return false;
 }
 
-
-int main()
-{
-    char num[] = "121";
-    char mod[] = "122";
-    size_t size;
-    char err[200];
-
-    char* arr = discreteSqrt(size, num, mod, err);
-}
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
 
 /*

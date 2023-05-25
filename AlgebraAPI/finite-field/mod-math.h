@@ -1,5 +1,4 @@
 #ifndef MOD_NUM
-#define MOD_NUM
 
 #include <stdexcept>
 #include <string>
@@ -133,9 +132,6 @@ namespace modular
     template <typename T1>
     bool isGenerator(modNum<T1> value); // is element a multyplicative group generator
 
-    template <typename T1>
-    T1 orderOfElement(modNum<T1> value);
-
     //////////////////////////////////////////////////////////////////////////////////////////////
     template <typename T>
     modNum<T> eulerFunction(modNum<T> num); // Euler function
@@ -148,6 +144,7 @@ namespace modular
     bool isPrime(modNum<T1> value, size_t k); // Miller–Rabin primality test
 
 } // namespace modular
+#define MOD_NUM
 
 #include "source/euler-carmichael.tcc"
 #include "source/factorization.tcc"
@@ -156,7 +153,6 @@ namespace modular
 #include "source/isPrime.tcc"
 #include "source/log.tcc"
 #include "source/mod-num.tcc"
-#include "source/orderOfElement.tcc"
 #include "source/sqrt.tcc"
 
 #endif

@@ -49,9 +49,6 @@ namespace modular
         {
             if (table.find(gamma) != table.end())
             {
-                std::cout << i << std::endl;
-                std::cout << m << std::endl;
-                std::cout << table[gamma] << std::endl;
 
                 return i * m + table[gamma];
             }
@@ -60,6 +57,7 @@ namespace modular
 
         throw std::invalid_argument("Unexpected behaviour");
     }
+
 #endif
 
 } // namespace modular
