@@ -1,3 +1,5 @@
+#include "poly-ring-math.h"
+
 #include <gmpxx.h>
 
 #include <algorithm>
@@ -8,7 +10,6 @@
 #include <utility>
 #include <vector>
 
-#include "poly-ring-math.h"
 
 const size_t MESSAGE_LEN = 200;
 
@@ -57,13 +58,24 @@ removeSpaces(std::string str)
     return str;
 }
 
+std::string ReplaceAll(std::string str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+    return str;
+}
+
 std::vector<std::pair<std::string, std::string>>
 convertPolynomial(std::string polynomial)
 {
-    polynomial = removeSpaces(polynomial);
+        polynomial = removeSpaces(polynomial);
     std::vector<std::pair<std::string, std::string>> result;
-    std::stringstream ss(polynomial);
+    std::string newPol = ReplaceAll(polynomial, "-", " +-");
+    std::stringstream ss(newPol);
     std::string term;
+
     while (std::getline(ss, term, '+'))
     {
         int32_t posX = term.find("x");
