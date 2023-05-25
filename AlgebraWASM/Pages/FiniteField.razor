@@ -247,8 +247,7 @@
 				}
 			</div>
 			break;
-		default:
-			break;
+		
 	}
 </div>
 
@@ -657,36 +656,7 @@
 			Console.WriteLine(ex.Message);
 		}
 	}
-
-	private unsafe void Order()
-	{
-		try
-		{
-			NormalizeInputString();
-			byte[] aBytes = Encoding.ASCII.GetBytes(firstInputBox);
-			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
-			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
-
-			fixed (byte* aPtr = aBytes)
-			fixed (byte* modPtr = modBytes)
-			fixed (byte* errStrPtr = errorStrBytes)
-			{
-				byte* resultPtr = FiniteFieldMethods.orderOfElement(aPtr, modPtr, errStrPtr);
-
-				int resultLength = 0;
-				while (resultPtr[resultLength] != 0)
-					resultLength++;
-
-				byte[] resultBytes = new byte[resultLength];
-				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, resultLength);
-				result = Encoding.ASCII.GetString(resultBytes);
-			}
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex.Message);
-		}
-	}
+	
 
 	private unsafe void isGenerator()
 	{
