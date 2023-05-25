@@ -47,15 +47,14 @@ Polynomial<T>::der() const
 
     for (auto it = poly.begin(); it != poly.end(); ++it)
     {
-        new_koef = it->k().getValue() * it->deg();
-        new_pow = it->deg() - 1;
-        if (new_pow < 1)
+        new_koef = (it->k().getValue() * it->deg()) % this->numMod;
+        new_pow = (it->deg() == 0 ? 0 : it->deg() - 1);
+
+        if (new_koef > 0)
         {
-            new_koef = 0;
-            new_pow = 0;
+            current_newnode = Node<T>(modNum<T>(new_koef, this->numMod), new_pow);
+            returned_field.addNode(current_newnode);
         }
-        current_newnode = Node<T>(modNum<T>(new_koef, this->numMod), new_pow);
-        returned_field.addNode(current_newnode);
     }
 
     return returned_field;

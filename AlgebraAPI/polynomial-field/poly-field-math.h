@@ -6,8 +6,8 @@
 using namespace modular;
 
 template <typename T>
-bool
-isPrimeSimpleFunction(T num) {
+bool isPrimeSimpleFunction(T num)
+{
     T check = sqrt(num);
 
     for (int i = 2; i <= check; i++)
@@ -20,50 +20,64 @@ template <typename T>
 typename std::vector<T> nodes;
 
 template <typename T>
-class PolynomialField {
-   protected:
+class PolynomialField
+{
+protected:
     T numMod;
 
     Polynomial<T> value;
     Polynomial<T> MOD;
 
     void correct();
-   public:
-    PolynomialField(T mod, Polynomial<T> polyMod) {
-        if (isPrimeSimpleFunction(mod)) {
+
+public:
+    PolynomialField(T mod, Polynomial<T> polyMod)
+    {
+        if (isPrimeSimpleFunction(mod))
+        {
             this->numMod = mod;
             Polynomial<T> tmp(mod);
             this->value = tmp;
             this->MOD = polyMod;
-        } else
+        }
+        else
             throw std::invalid_argument("Mod should be prime");
     }
 
-    PolynomialField(T mod, Polynomial<T> polyMod, Polynomial<T> polyValue) {
-        if (isPrimeSimpleFunction(mod)) {
+    PolynomialField(T mod, Polynomial<T> polyMod, Polynomial<T> polyValue)
+    {
+        if (isPrimeSimpleFunction(mod))
+        {
             this->numMod = mod;
             this->MOD = polyMod;
             this->value = polyValue;
-        } else
+        }
+        else
             throw std::invalid_argument("Mod should be prime");
     }
 
-    PolynomialField(T mod, Polynomial<T> polyMod, std::vector<std::pair<T, size_t>> polyV) {
-        if (isPrimeSimpleFunction(mod)) {
+    PolynomialField(T mod, Polynomial<T> polyMod, std::vector<std::pair<T, size_t>> polyV)
+    {
+        if (isPrimeSimpleFunction(mod))
+        {
             this->numMod = mod;
             this->MOD = polyMod;
             this->value = Polynomial<T>(polyV, mod);
-        } else
+        }
+        else
             throw std::invalid_argument("Mod should be prime");
     }
 
     PolynomialField(T mod, std::vector<std::pair<T, size_t>> modV,
-                    std::vector<std::pair<T, size_t>> polyV) {
-        if (isPrimeSimpleFunction(mod)) {
+                    std::vector<std::pair<T, size_t>> polyV)
+    {
+        if (isPrimeSimpleFunction(mod))
+        {
             this->numMod = mod;
             this->MOD = Polynomial<T>(modV, mod);
             this->value = Polynomial<T>(polyV, mod);
-        } else
+        }
+        else
             throw std::invalid_argument("Mod should be prime");
     }
 
@@ -89,7 +103,7 @@ class PolynomialField {
 
     void normalize();
 
-    PolynomialField<T> inv();
+    PolynomialField<T> inv() const;
     PolynomialField<T> operator/(const PolynomialField<T> &) const;
 
     size_t getOrder();
@@ -100,7 +114,8 @@ class PolynomialField {
 };
 
 #include "source//poly-field-basic.tcc"
-//#include "source//cyclotomicToMultipliers.tcc" -> lots of bugs so have to comment
+// #include "source//cyclotomicToMultipliers.tcc" -> lots of bugs so have to comment
 #include "source/irredicibilityTest.tcc"
+#include "source/inverse-poly.tcc"
 
 #endif
