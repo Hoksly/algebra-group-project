@@ -47,7 +47,7 @@ Polynomial<T>::der() const
 
     for (auto it = poly.begin(); it != poly.end(); ++it)
     {
-        new_koef = (it->k().getValue() * it->deg()) % this->numMod;
+        new_koef = (it->k().getValue() * static_cast<T>(it->deg())) % this->numMod;
         new_pow = (it->deg() == 0 ? 0 : it->deg() - 1);
 
         if (new_koef > 0)
@@ -71,7 +71,7 @@ Polynomial<T>::evaluate(const T x_value) const
     {
         if (it->deg() > 0)
         {
-            T nodeDegree = it->deg();
+            T nodeDegree = static_cast<T>(it->deg());
             current_num = fpow(modNum<T>(x_value, numMod), nodeDegree) * it->k();
         }
         else
