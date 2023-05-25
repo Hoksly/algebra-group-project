@@ -514,8 +514,9 @@
 				string res = "";
 				foreach (var kvp in resultDct)
 				{
-					res += "Value: " + kvp.Key + " Quantity: " + kvp.Value + '\n';
+					res +=  kvp.Key + "^" + kvp.Value + " * ";
 				}
+				res = res.Substring(0, res.Length - 2);
 				result = res;
 			}
 		}
@@ -563,8 +564,9 @@
 				string res = "";
 				foreach (var kvp in resultDct)
 				{
-					res += "Value: " + kvp.Key + " Quantity: " + kvp.Value + '\n';
+					res +=  kvp.Key + "^" + kvp.Value + " * ";
 				}
+				res = res.Substring(0, res.Length - 2);
 				result = res;
 			}
 		}
@@ -612,8 +614,9 @@
 				string res = "";
 				foreach (var kvp in resultDct)
 				{
-					res += "Value: " + kvp.Key + '\n';
+					res +=  kvp.Key + ", ";
 				}
+				res = res.Substring(0, res.Length - 2);
 				result = res;
 			}
 		}
