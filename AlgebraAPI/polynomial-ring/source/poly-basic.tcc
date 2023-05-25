@@ -42,17 +42,17 @@ Polynomial<T>::der() const
 {
     Polynomial<T> returned_field;
     Node<T> current_newnode;
-    T new_koef;
+    modNum<T> new_koef;
     size_t new_pow;
 
     for (auto it = poly.begin(); it != poly.end(); ++it)
     {
-        new_koef = (it->k().getValue() * static_cast<T>(it->deg())) % this->numMod;
+        new_koef = (it->k() * modNum<T>(static_cast<T>(it->deg()), this->numMod));
         new_pow = (it->deg() == 0 ? 0 : it->deg() - 1);
 
-        if (new_koef > 0)
+        if (new_koef.getValue() > 0)
         {
-            current_newnode = Node<T>(modNum<T>(new_koef, this->numMod), new_pow);
+            current_newnode = Node<T>(new_koef, new_pow);
             returned_field.addNode(current_newnode);
         }
     }
