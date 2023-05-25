@@ -10,6 +10,12 @@ namespace modular
 #ifndef IS_GENERATOR_TCC
 #define IS_GENERATOR_TCC
 
+    /*
+     * @brief Checks if a number is a generator of a multiplicative group.
+     * @tparam T The type of values stored in modNum.
+     * @param a The number to check.
+     * @return True if a is a generator of a multiplicative group, false otherwise.
+     */
     template <typename T>
     bool
     isGenerator(modNum<T> a)
@@ -40,11 +46,3 @@ namespace modular
 #endif
 
 } // namespace modular
-
-/*
-
-no matching function for call to ‘fpow(modular::modNum<__gmp_expr<__mpz_struct [1], __mpz_struct
-[1]> >&, __gmp_expr<__mpz_struct [1],
-__gmp_binary_expr<__gmp_expr<__mpz_struct [1], __mpz_struct [1]>, __gmp_expr<__mpz_struct [1],
-__mpz_struct [1]>, __gmp_binary_divides> >)’
-*/

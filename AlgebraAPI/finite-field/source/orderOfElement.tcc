@@ -9,6 +9,12 @@ namespace modular
 #ifndef ORDER_OG_ELEMENT
 #define ORDER_OG_ELEMENT
 
+    /*
+     * @brief Calculates the order of an element in a multiplicative group.
+     * @tparam T The type of values stored in modNum.
+     * @param a The element to calculate the order of.
+     * @return The order of a.
+     */
     template <typename T>
     T orderOfElement(modNum<T> a)
     {

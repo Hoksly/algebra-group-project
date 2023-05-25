@@ -14,12 +14,11 @@ using namespace modular;
 const size_t MESSAGE_LEN = 200;
 
 /**
- *
- *    @brief Adds two numbers and returns their sum modulo a given number.
- *    @param a The first number to be added.
- *    @param b The second number to be added.
- *    @param mod The number to take the result modulo with.
- *    @return A char pointer to the result of the subtraction in string form
+ *    @brief Adds two numbers a and b modulo mod
+ *    @param a The first number
+ *    @param b The second number
+ *    @param mod The modulus of the operation
+ *    @return A char pointer to the result of the addition in string form
  *    @note memory should be manualy freed by delete[]
  *    */
 extern "C" char *
@@ -45,16 +44,15 @@ addition(char *a, char *b, char *mod, char *errorStr)
 
     return resStr;
 }
-
-/**
- *
+/*
  *    @brief Subtracts two numbers a and b modulo mod
- *    @param a The minuend (
- *    @param b The subtrahend
+ *    @param a The first number
+ *    @param b The second number
  *    @param mod The modulus of the operation
  *    @return A char pointer to the result of the subtraction in string form
  *    @note memory should be manualy freed by delete[]
- *    */
+ *
+ */
 extern "C" char *
 subtraction(char *a, char *b, char *mod, char *errorStr)
 {
@@ -80,14 +78,14 @@ subtraction(char *a, char *b, char *mod, char *errorStr)
     return resStr;
 }
 
-/**
- *
- *    @brief Multiply two numbers modulo mod
- *    @param a The first number in string form
- *    @param b The second number in string form
- *    @param mod The number to take the modulus by in string form
+/*
+ *    @brief Multiplies two numbers a and b modulo mod
+ *    @param a The first number
+ *    @param b The second number
+ *    @param mod The modulus of the operation
  *    @return A char pointer to the result of the multiplication in string form
  *    @note memory should be manualy freed by delete[]
+ *
  */
 extern "C" char *
 multiplication(char *a, char *b, char *mod, char *errorStr)
@@ -115,14 +113,14 @@ multiplication(char *a, char *b, char *mod, char *errorStr)
     return resStr;
 }
 
-/**
- *
- *    @brief Performs modular division of two large integers.
- *    @param a string representing the numerator.
- *    @param b  string representing the denominator.
- *    @param mod  string representing the modulus.
- *    @return A char pointer to the result of modular division.
+/*
+ *    @brief Divides two numbers a and b modulo mod
+ *    @param a The first number
+ *    @param b The second number
+ *    @param mod The modulus of the operation
+ *    @return A char pointer to the result of the division in string form
  *    @note memory should be manualy freed by delete[]
+ *
  */
 extern "C" char *
 division(char *a, char *b, char *mod, char *errorStr)
@@ -147,6 +145,17 @@ division(char *a, char *b, char *mod, char *errorStr)
     }
     return resStr;
 }
+
+/*
+ *    @brief Calculates the remainder of a and b modulo mod
+ *    @param a The first number
+ *    @param b The second number
+ *    @param mod The modulus of the operation
+ *    @return A char pointer to the result of the remainder in string form
+ *    @note memory should be manualy freed by delete[]
+ *
+ */
+
 extern "C" char *
 fastPow(char *a, char *degree, char *mod, char *errorStr)
 {
@@ -170,6 +179,17 @@ fastPow(char *a, char *degree, char *mod, char *errorStr)
 
     return resStr;
 }
+
+/*
+ *    @brief Calculates the remainder of a and b modulo mod
+ *    @param a The first number
+ *    @param b The second number
+ *    @param mod The modulus of the operation
+ *    @return A char pointer to the result of the remainder in string form
+ *    @note memory should be manualy freed by delete[]
+ *
+ */
+
 extern "C" char *
 inverse(char *num, char *mod, char *errorStr)
 {
@@ -205,6 +225,7 @@ inverse(char *num, char *mod, char *errorStr)
  * the number of factors.
  *    @throw std::length_error if the number of prime factors is greater than 127.
  *    */
+
 extern "C" char *
 factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 {
@@ -241,23 +262,15 @@ factorizePolard(size_t &size, char *num, char *mod, char *errorStr)
 
     return nullptr;
 }
-
-/**
- * @brief Factorizes a given number modulo another number using the naive factorization algorithm.
- * This function takes two input numbers and factorizes the first number modulo the second number
- * using the naive factorization algorithm, implemented using the modNum template class and the GMP.
- * The factorized numbers are returned as a dynamically allocated 2D char array, where each row of
- * the array represents a factor in string format. The total number of factors is returned in the
- * input parameter 'size'. In case of any runtime errors, the function throws an exception, and the
- * error message is stored in the input parameter 'errorStr'.
- *
- * @param size A reference to a variable to store the total number of factors obtained.
- * @param num The number to be factorized in string format.
- * @param mod The number to take the input number modulo with in string format.
- * @param errorStr A char pointer to store the error message in case of exception.
- * @return A dynamically allocated 2D char array storing the factors obtained in string format.
- * @note The memory for the result array should be manually freed by the user using 'delete[]'.
+/*
+ *    @brief Factorize a number modulo a given modulus.
+ *    This function computes the prime factorization of a number modulo a given modulus.
+ *    @param size Reference to a variable that will hold the number of prime factors found.
+ *    @param num The number to factorize.
+ *    @param mod The modulus.
+ *    @return A string representing the prime factors.
  */
+
 extern "C" char *
 factorizeSimple(size_t &size, char *num, char *mod, char *errorStr)
 {
@@ -347,7 +360,8 @@ discreteSqrt(size_t &retSize, char *num, char *mod, char *errorStr)
  *    @param base the base of the logarithm
  *    @param mod the modulus used in the computation
  *    @return a string representation of the computed logarithm
- *    */
+ **/
+
 extern "C" char *
 discreteLog(char *num, char *base, char *mod, char *errorStr)
 {
@@ -444,10 +458,10 @@ EulerFunction(char *num, char *mod, char *errorStr)
 
 /**
  *
- *    @brief Calculates the Carmichael Function λ(n) for a given number n and modulus mod
- *    @param num the number for which to calculate the Carmichael Function
- *    @param mod the modulus used to calculate the Carmichael Function
- *   @return The value of the Carmichael Function as a string
+ * @brief Calculates the Carmichael Function λ(n) for a given number n and modulus mod
+ * @param num the number for which to calculate the Carmichael Function
+ * @param mod the modulus used to calculate the Carmichael Function
+ * @return The value of the Carmichael Function as a string
  *
  */
 
@@ -513,14 +527,5 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
     return false;
 }
 
-// Compile: g++ wrapper.cpp -lgmpxx -lgmp
-
-/*
-
-em++ -O3 -s MODULARIZE=1 -s "EXPORT_NAME='testModule'" -s  -s "EXPORTED_FUNCTIONS=['_addition']" \
--o myModule.wasm wrapper.cpp  -I/usr/include
-
-em++ -o test.js test.cpp "EXPORTED_FUNCTIONS=['_addition']" -s EXPORT_NAME='testModule'" -s
-MODULARIZE=1 -L/${HOME}/opt/lib/libgmp.a -I${HOME}/opt/include
-
-*/
+// Compile: g++ wrapper.cpp -lgmpxx -lgm
+// Wasm Compile: em++ finite-field/wrapper.cpp polynomial-ring/wrapper.cpp polynomial-field/wrapper.cpp -shared -L/home/emscripten/opt/lib  -I/home/emscripten/opt/include -lgmp -lgmpxx -o global-wrapper.o

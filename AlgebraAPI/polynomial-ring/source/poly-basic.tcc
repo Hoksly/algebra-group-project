@@ -128,6 +128,11 @@ void Polynomial<T>::print() const
     std::cout << std::endl;
 }
 
+/*
+ * @brief Adds a node to the polynomial.
+ * @param node The node to add to the polynomial.
+ */
+
 template <typename T>
 void Polynomial<T>::addNode(const Node<T> node)
 {
@@ -153,6 +158,12 @@ void Polynomial<T>::addNode(const Node<T> node)
     }
     poly.push_back(node);
 }
+
+/*
+ * @brief Adds a node to the polynomial.
+ * @param num The number to add to the polynomial.
+ * @param deg The degree of the number to add to the polynomial.
+ */
 
 template <typename T>
 void Polynomial<T>::addNode(const T num, size_t deg)
@@ -356,6 +367,12 @@ bool Polynomial<T>::operator==(const Polynomial<T> &other) const
     return false;
 }
 
+/*
+ * @brief Overloaded inequality comparison operator for Polynomial objects.
+ * @param other The Polynomial object to compare to.
+ * @return True if the Polynomials are not equal, false otherwise.
+ */
+
 template <typename T>
 bool Polynomial<T>::empty()
 {
@@ -425,6 +442,14 @@ Polynomial<T>::shiftRight(int positions) const
 
     return tmp;
 }
+
+/**
+ *
+ * @brief Converts the Polynomial object to a vector of value-degree pairs.
+ * @details The Polynomial object is converted to a vector of value-degree
+ * @tparam T The type of values stored in the Polynomial.
+ * @return A vector of value-degree pairs representing the Polynomial.
+ */
 
 template <typename T>
 std::vector<std::pair<T, size_t>>

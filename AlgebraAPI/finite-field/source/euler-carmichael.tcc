@@ -10,6 +10,12 @@ namespace modular
 #ifndef EULER_CARMICAEL
 #define EULER_CARMICAEL
 
+    /*
+     * @brief Calculates the Euler totient function of a number.
+     * @tparam T The type of values stored in modNum.
+     * @param n The number to calculate the Euler totient function of.
+     * @return The Euler totient function of n.
+     */
     template <typename T>
     T EulerFunction(T n)
     {
@@ -32,6 +38,12 @@ namespace modular
             res -= res / n;
         return res;
     }
+    /*
+     * @brief Calculates the Euler totient function of a number.
+     * @tparam T The type of values stored in modNum.
+     * @param num The number to calculate the Euler totient function of.
+     * @return The Euler totient function of num.
+     */
 
     template <typename T>
     modNum<T>
@@ -68,7 +80,13 @@ namespace modular
         }
         return res;
     }
-
+    /*
+     * @brief Calculates the Carmichael function of a number.
+     * @tparam T The type of values stored in modNum.
+     * @param n The number to calculate the Carmichael function of.
+     * @return The Carmichael function of n.
+     *
+     */
     template <typename T>
     T CarmichaelFunction(T n)
     {
