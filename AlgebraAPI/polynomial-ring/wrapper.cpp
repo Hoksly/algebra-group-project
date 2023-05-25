@@ -104,6 +104,9 @@ polyParse(size_t &polySize, char *polyString)
         resStr[i * 2] = new char[v[i].first.size() + 1];
         resStr[i * 2 + 1] = new char[v[i].second.size() + 1];
 
+        resStr[i * 2][v[i].first.size()] = '\0';
+        resStr[i * 2 + 1][v[i].second.size()] = '\0';
+
         strcpy(resStr[i * 2], v[i].first.c_str());
         strcpy(resStr[i * 2 + 1], v[i].second.c_str());
     }
@@ -291,8 +294,10 @@ polyDerivative(size_t &retSize, size_t polySize1, char **polyStr1, char *numModS
         numMod.set_str(numModStr, 10);
 
         Polynomial<mpz_class> poly1(stringToPolyVector(polyStr1, polySize1, numMod), numMod);
+        poly1.print();
 
         Polynomial<mpz_class> polyRes = poly1.der();
+        polyRes.print();
 
         std::string resString = polyRes.toString();
         retSize = resString.size() + 1;
@@ -381,13 +386,21 @@ getRandomPoly(int n)
 int main()
 {
 
-    char poly[] = "x^5";
+    char poly[] = "x^5 + x^4 + x^3 + x^2 + x + 1";
     size_t sz;
     char **pp = polyParse(sz, poly);
+
+    for (int i = 0; i < sz * 2; ++i)
+    {
+        std::cout << std::string(pp[i]) << std::endl;
+    }
     size_t ret;
+
     char mod[] = "5";
     char *errstr = new char[100];
+
     char pt[] = "10";
+
     char *der = polyDerivative(ret, sz, pp, mod, errstr);
 
     std::cout << std::string(der) << std::endl;
