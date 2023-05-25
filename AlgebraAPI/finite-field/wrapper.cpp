@@ -549,6 +549,16 @@ isPrime(char *num, char *mod, char *iterations, char *errorStr)
     return false;
 }
 
+
+int main()
+{
+    char num[] = "4853343967";
+    char mod[] = "4853343968";
+    size_t size;
+    char err[200];
+
+    char* arr = factorizePolard(size, num, mod, err);
+}
 // Compile: g++ wrapper.cpp -lgmpxx -lgmp
 
 /*

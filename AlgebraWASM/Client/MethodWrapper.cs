@@ -24,10 +24,10 @@ namespace AlgebraWASM.Client
         public static unsafe extern byte* inverse(byte* num, byte* mod, byte* errStr);
 
 		[DllImport("finite-field-wrapper")]
-		public static extern unsafe byte** factorizePolard(ref int size, byte* num, byte* mod, byte* errorStr);
+		public static extern unsafe byte* factorizePolard(ref int size, byte* num, byte* mod, byte* errorStr);
 
 		[DllImport("finite-field-wrapper")]
-		public static extern unsafe byte** factorizeSimple(ref int size, byte* num, byte* mod, byte* errorStr);
+		public static extern unsafe byte* factorizeSimple(ref int size, byte* num, byte* mod, byte* errorStr);
 
 		[DllImport("finite-field-wrapper")]
 		public static extern unsafe byte* discreteSqrt(ref int size, byte* num, byte* mod, byte* errStr);

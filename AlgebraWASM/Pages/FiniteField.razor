@@ -490,30 +490,25 @@
 			fixed (byte* errStrPtr = errorStrBytes)
 			{
 				int size = 0;
-				byte** resultPtr = FiniteFieldMethods.factorizePolard(ref size, aPtr, modPtr, errStrPtr);
+				byte* resultPtr = FiniteFieldMethods.factorizePolard(ref size, aPtr, modPtr, errStrPtr);
 
-				List<string> resultList = new List<string>();
-				int offset = 0;
-				while (true)
-				{
-					IntPtr currentPtr = new IntPtr(resultPtr[offset]);
-					if (currentPtr == IntPtr.Zero)
-						break;
+				IntPtr currentPtr = (IntPtr)resultPtr;
+				if (currentPtr == IntPtr.Zero)
+					return;
 
-					byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
-					resultList.Add(Encoding.ASCII.GetString(currentBytes));
-					offset++;
-				}
+				byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
+				string tmp = Encoding.ASCII.GetString(currentBytes);
 
-				string[] resultArray = resultList.ToArray();
+				String[] splited = tmp.Split(' ');
+
 				Dictionary<string, int> resultDct = new Dictionary<string, int>();
 
-				for (int i = 0; i < size; ++i)
+				for (int i = 0; i < splited.Length-1; ++i)
 				{
-					if (resultDct.ContainsKey(resultArray[i]))
-						resultDct[resultArray[i]]++;
+					if (resultDct.ContainsKey(splited[i]))
+						resultDct[splited[i]]++;
 					else
-						resultDct[resultArray[i]] = 1;
+						resultDct[splited[i]] = 1;
 				}
 
 				string res = "";
@@ -544,28 +539,25 @@
 			fixed (byte* errStrPtr = errorStrBytes)
 			{
 				int size = 0;
-				byte** resultPtr = FiniteFieldMethods.factorizeSimple(ref size, aPtr, modPtr, errStrPtr);
-				List<string> resultList = new List<string>();
-				int offset = 0;
-				while (true)
-				{
-					IntPtr currentPtr = new IntPtr(resultPtr[offset]);
-					if (currentPtr == IntPtr.Zero)
-						break;
+				byte* resultPtr = FiniteFieldMethods.factorizeSimple(ref size, aPtr, modPtr, errStrPtr);
 
-					byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
-					resultList.Add(Encoding.ASCII.GetString(currentBytes));
-					offset++;
-				}
+				IntPtr currentPtr = (IntPtr)resultPtr;
+				if (currentPtr == IntPtr.Zero)
+					return;
 
-				string[] resultArray = resultList.ToArray();
+				byte[] currentBytes = Encoding.ASCII.GetBytes(Marshal.PtrToStringAnsi(currentPtr));
+				string tmp = Encoding.ASCII.GetString(currentBytes);
+
+				String[] splited = tmp.Split(' ');
+
 				Dictionary<string, int> resultDct = new Dictionary<string, int>();
-				for (int i = 0; i < size; ++i)
+
+				for (int i = 0; i < splited.Length - 1; ++i)
 				{
-					if (resultDct.ContainsKey(resultArray[i]))
-						resultDct[resultArray[i]]++;
+					if (resultDct.ContainsKey(splited[i]))
+						resultDct[splited[i]]++;
 					else
-						resultDct[resultArray[i]] = 1;
+						resultDct[splited[i]] = 1;
 				}
 
 				string res = "";
