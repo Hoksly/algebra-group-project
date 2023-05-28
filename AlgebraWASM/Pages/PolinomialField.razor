@@ -1,0 +1,417 @@
+﻿@page "/polinomial-field"
+@using System.ComponentModel.DataAnnotations;
+@using System.Text;
+@using AlgebraWASM.Client;
+@using System.Runtime.InteropServices;
+@using System.Text.RegularExpressions;
+@inject NavigationManager NavigationManager
+<style>
+	html {
+		font-size: 125%;
+		line-height: 1.4;
+	}
+
+	body {
+		background: linear-gradient(to right, #4e006e, #020085);
+		color: floralwhite;
+	}
+</style>
+<link href="css/typingResult.css" rel="stylesheet" />
+<link href="css/buttons.css" rel="stylesheet" />
+
+
+<div class="wrapper">
+	<div class="alert alert-secondary mt-4" style="width: 35%; font-size: 34px;">
+		<strong>Поле многочленів</strong>
+	</div>
+	<div class="alert alert-secondary mt-4">
+		<select @onchange="SelectedMethod">
+			<option value="">--Оберіть метод--</option>
+			<option value="15">15. Розклад кругового многочлена на незвідні.</option>
+			<option value="16">16. Знаходження К незвідних многочленів.</option>
+			<option value="17">17. Перевірка чи є многочлен незвідним.</option>
+			<option value="18">18. Додавання, віднімання, множення двох многочленів.</option>
+			<option value="19">19. Знаходження оберненого многочлена (алгоритм Евкліда).</option>
+			<option value="20">20. Знаходження порядку незвідного многочлена.</option>
+		</select>
+	</div>
+
+	@if (!string.IsNullOrWhiteSpace(selected))
+	{
+		<div class="input">
+			<input type="text" name="input" id="input" @bind-value="@coefModule" placeholder="Enter coefficient module">
+		</div>
+		<div class="input">
+			<input type="text" name="input" id="input" @bind-value="@powModule" placeholder="Enter pow module">
+		</div>
+	}
+
+	@switch (selected)
+	{
+		case "15":
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="Add">Add</button>
+				<button class="custom-btn btn-15" @onclick="Subtract">Subtract</button>
+				<button class="custom-btn btn-15" @onclick="Multiply">Multiply</button>
+				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Norm</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		case "16":
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Calculate</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		case "17":
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter a number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Calculate</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		case "18": @*todo*@
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="Add">Add</button>
+				<button class="custom-btn btn-15" @onclick="Subtract">Subtract</button>
+				<button class="custom-btn btn-15" @onclick="Multiply">Multiply</button>
+				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Norm</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		case "19":@*todo*@
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="Inverse">Inverse</button>
+				<button class="custom-btn btn-15" @onclick="Division">Division</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		case "20":@*todo*@
+			<div>
+				<div class="wrapper">
+					<div class="input">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter number">
+					</div>
+				</div>
+				<button class="custom-btn btn-15" @onclick="RickRoll" target="_blank">Order</button>
+				@if (!string.IsNullOrWhiteSpace(result))
+				{
+					<div class="wrapper">
+						<div class="typing-demo">
+							Result:
+						</div>
+						<div class="typing-demo">
+							@result
+						</div>
+					</div>
+				}
+			</div>
+			break;
+		default:
+			break;
+	}
+</div>
+
+@code {
+	public string selected { get; set; } = "";
+	public string result { get; set; } = "";
+	public string errStr { get; set; } = "";
+	[Required] public static string coefModule { get; set; } = "";
+	[Required] public static string powModule { get; set; } = "";
+	[Required] public string firstInputBox { get; set; } = "";
+	[Required] public string secondInputBox { get; set; } = "";
+
+	private void RickRoll()
+	{
+		string url = $"https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+		NavigationManager.NavigateTo(url, forceLoad: true);
+	}
+
+	private void SelectedMethod(ChangeEventArgs e)
+	{
+		result = "";
+		errStr = "";
+		if (!string.IsNullOrWhiteSpace((string)e.Value))
+		{
+			selected = (string)e.Value;
+		}
+	}
+
+	void NormalizeInputString()
+	{
+		coefModule = Regex.Replace(coefModule, "[^0-9]", "");
+		powModule = Regex.Replace(powModule, "[^0-9x+\\-*^]", "");
+		firstInputBox = Regex.Replace(firstInputBox, "[^0-9x+\\-*^]", "");
+		secondInputBox = Regex.Replace(secondInputBox, "[^0-9x+\\-*^]", "");
+
+
+		if (string.IsNullOrWhiteSpace(coefModule)) coefModule = "1";
+		if (string.IsNullOrWhiteSpace(powModule)) powModule = "x+3";
+		if (string.IsNullOrWhiteSpace(firstInputBox)) firstInputBox = "x+1";
+		if (string.IsNullOrWhiteSpace(secondInputBox)) secondInputBox = "x+2";
+	}
+
+	unsafe void Add()
+	{
+		try
+		{
+			NormalizeInputString();
+			int size1 = 0, size2 = 0, polyModSize = 0;
+			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* polyModPtr = polyModBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			fixed (byte* str1Ptr = str1)
+			fixed (byte* str2Ptr = str2)
+			{
+				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
+				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
+				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+
+				int size = 0;
+
+				byte* resultPtr = PolyFieldMethods.polyFieldAddition(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+
+
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+
+	unsafe void Subtract()
+	{
+		try
+		{
+			NormalizeInputString();
+			int size1 = 0, size2 = 0, polyModSize = 0;
+			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* polyModPtr = polyModBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			fixed (byte* str1Ptr = str1)
+			fixed (byte* str2Ptr = str2)
+			{
+				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
+				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
+				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+
+				int size = 0;
+
+				byte* resultPtr = PolyFieldMethods.polyFieldSubstruction(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+
+
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+
+	unsafe void Multiply()
+	{
+		try
+		{
+			NormalizeInputString();
+			int size1 = 0, size2 = 0, polyModSize = 0;
+			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* polyModPtr = polyModBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			fixed (byte* str1Ptr = str1)
+			fixed (byte* str2Ptr = str2)
+			{
+				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
+				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
+				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+
+				int size = 0;
+
+				byte* resultPtr = PolyFieldMethods.polyFieldMultiplication(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+
+
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+
+	unsafe void Inverse()
+	{
+		try
+		{
+			NormalizeInputString();
+			int size1 = 0, polyModSize = 0;
+			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* polyModPtr = polyModBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			fixed (byte* str1Ptr = str1)
+			{
+				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
+				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+
+				int size = 0;
+
+				byte* resultPtr = PolyFieldMethods.polyFieldInversion(ref size, size1, parsedPoly1, polyModSize, polyModparsed, modPtr, errStrPtr);
+
+
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+
+	unsafe void Division()
+	{
+		try
+		{
+			NormalizeInputString();
+			int size1 = 0, size2 = 0, polyModSize = 0;
+			byte[] str1 = Encoding.ASCII.GetBytes(firstInputBox);
+			byte[] str2 = Encoding.ASCII.GetBytes(secondInputBox);
+			byte[] modBytes = Encoding.ASCII.GetBytes(coefModule);
+			byte[] polyModBytes = Encoding.ASCII.GetBytes(powModule);
+			byte[] errorStrBytes = Encoding.ASCII.GetBytes(errStr);
+
+			fixed (byte* modPtr = modBytes)
+			fixed (byte* polyModPtr = polyModBytes)
+			fixed (byte* errStrPtr = errorStrBytes)
+			fixed (byte* str1Ptr = str1)
+			fixed (byte* str2Ptr = str2)
+			{
+				var parsedPoly1 = PolyRingMethods.polyParse(ref size1, str1Ptr);
+				var parsedPoly2 = PolyRingMethods.polyParse(ref size2, str2Ptr);
+				var polyModparsed = PolyRingMethods.polyParse(ref polyModSize, polyModPtr);
+
+				int size = 0;
+
+				byte* resultPtr = PolyFieldMethods.polyFieldDivision(ref size, size1, parsedPoly1, size2, parsedPoly2, polyModSize, polyModparsed, modPtr, errStrPtr);
+
+
+				byte[] resultBytes = new byte[size];
+				Marshal.Copy((IntPtr)resultPtr, resultBytes, 0, size);
+				result = Encoding.ASCII.GetString(resultBytes);
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+}
