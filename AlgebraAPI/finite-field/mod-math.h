@@ -7,6 +7,12 @@
 namespace modular
 {
 
+    /**
+     *
+     * @brief A class representing a modular number with value of type T.
+     * This class provides functionality for performing arithmetic operations on modular numbers.
+     * @tparam T The type of value in the modular number.
+     */
     template <typename T>
     class modNum
     {
