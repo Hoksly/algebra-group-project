@@ -147,17 +147,70 @@ public:
      * @brief Default constructor for PolynomialField.
      */
     PolynomialField() = default;
-
+    /**
+     * Adds two PolynomialField objects and returns the result.
+     *
+     * @param other The PolynomialField to be added.
+     * @return The sum of the two PolynomialField objects.
+     */
     PolynomialField<T> operator+(const PolynomialField<T> &) const;
+
+    /**
+     * Subtracts another PolynomialField object from this object and returns the result.
+     *
+     * @param other The PolynomialField to be subtracted.
+     * @return The difference between the two PolynomialField objects.
+     */
     PolynomialField<T> operator-(const PolynomialField<T> &) const;
+
+    /**
+     * Multiplies two PolynomialField objects and returns the result.
+     *
+     * @param other The PolynomialField to be multiplied.
+     * @return The product of the two PolynomialField objects.
+     */
     PolynomialField<T> operator*(const PolynomialField<T> &) const;
+
+    /**
+     * Multiplies the PolynomialField object by a scalar value and returns the result.
+     *
+     * @param num The scalar value to multiply the PolynomialField object with.
+     * @return The product of the PolynomialField object and the scalar value.
+     */
     PolynomialField<T> operator*(T num) const;
-
+    /**
+     * Checks if the PolynomialField object is equal to another PolynomialField object.
+     *
+     * @param other The PolynomialField to compare with.
+     * @return True if the PolynomialField objects are equal, false otherwise.
+     */
     bool operator==(const PolynomialField<T> &) const;
-    PolynomialField<T> pow(T k);
 
+    /**
+     * Raises the PolynomialField object to the power of k and returns the result.
+     *
+     * @param k The exponent to raise the PolynomialField object to.
+     * @return The PolynomialField object raised to the power of k.
+     */
+    PolynomialField<T> pow(T k);
+    /**
+     * Adds a new node to the PolynomialField object with the given coefficient and degree.
+     *
+     * @param num The coefficient of the new node.
+     * @param deg The degree of the new node.
+     */
     void addNode(const T num, size_t deg);
+    /**
+     * Adds a new node to the PolynomialField object using the given Node object.
+     *
+     * @param node The Node object representing the new node to be added.
+     */
     void addNode(Node<T>);
+    /**
+     * Returns the Polynomial object stored in the PolynomialField.
+     *
+     * @return The Polynomial object stored in the PolynomialField.
+     */
     Polynomial<T> getValue() { return this->value; }
 
     /**
