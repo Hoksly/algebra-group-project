@@ -11,7 +11,14 @@
 #include <vector>
 
 const size_t MESSAGE_LEN = 200;
-
+/**
+ * Converts a string representation of a polynomial to a vector of pairs.
+ *
+ * @param polyString   The string representation of the polynomial.
+ * @param polySize     The size of the polynomial.
+ * @param numMod       The modulus value.
+ * @return             A vector of pairs representing the polynomial.
+ */
 vector<std::pair<mpz_class, size_t>>
 stringToPolyVector(char **polyString, size_t polySize, mpz_class numMod)
 {
@@ -32,7 +39,12 @@ stringToPolyVector(char **polyString, size_t polySize, mpz_class numMod)
 
     return polyV;
 }
-
+/**
+ * Converts a vector of pairs representing a polynomial to a string array.
+ *
+ * @param polyV   The vector of pairs representing the polynomial.
+ * @return        A string array representation of the polynomial.
+ */
 char **
 polyVectorToString(vector<std::pair<mpz_class, size_t>> polyV)
 {
@@ -49,14 +61,26 @@ polyVectorToString(vector<std::pair<mpz_class, size_t>> polyV)
 
     return resStr;
 }
-
+/**
+ * Removes spaces from a given string.
+ *
+ * @param str   The input string.
+ * @return      The string with spaces removed.
+ */
 std::string
 removeSpaces(std::string str)
 {
     str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
     return str;
 }
-
+/**
+ * Replaces all occurrences of a substring in a string with another substring.
+ *
+ * @param str     The input string.
+ * @param from    The substring to be replaced.
+ * @param to      The substring to replace with.
+ * @return        The modified string with replacements.
+ */
 std::string ReplaceAll(std::string str, const std::string &from, const std::string &to)
 {
     size_t start_pos = 0;
@@ -67,7 +91,12 @@ std::string ReplaceAll(std::string str, const std::string &from, const std::stri
     }
     return str;
 }
-
+/**
+ * Converts a polynomial string into a vector of pairs.
+ *
+ * @param polynomial   The string representation of the polynomial.
+ * @return             A vector of pairs representing the polynomial.
+ */
 std::vector<std::pair<std::string, std::string>>
 convertPolynomial(std::string polynomial)
 {
@@ -105,7 +134,13 @@ convertPolynomial(std::string polynomial)
     }
     return result;
 }
-
+/**
+ * Parses a polynomial string and returns it as a string array.
+ *
+ * @param polySize     The size of the polynomial.
+ * @param polyString   The string representation of the polynomial.
+ * @return             A string array representation of the polynomial.
+ */
 extern "C" char **
 polyParse(size_t &polySize, char *polyString)
 {
@@ -125,7 +160,18 @@ polyParse(size_t &polySize, char *polyString)
     }
     return resStr;
 }
-
+/**
+ * Performs polynomial addition and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The result of polynomial addition as a string.
+ */
 extern "C" char *
 polyAddition(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, char **polyStr2,
              char *numModStr, char *errorStr)
@@ -154,6 +200,18 @@ polyAddition(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize
         return nullptr;
     }
 }
+/**
+ * Performs polynomial subtraction and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The result of polynomial subtraction as a string.
+ */
 
 extern "C" char *
 polySubstruction(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2,
@@ -183,7 +241,18 @@ polySubstruction(size_t &retSize, size_t polySize1, char **polyStr1, size_t poly
         return nullptr;
     }
 }
-
+/**
+ * Performs polynomial multiplication and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The result of polynomial multiplication as a string.
+ */
 extern "C" char *
 polyMultiplication(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2,
                    char **polyStr2, char *numModStr, char *errorStr)
@@ -212,6 +281,19 @@ polyMultiplication(size_t &retSize, size_t polySize1, char **polyStr1, size_t po
         return nullptr;
     }
 }
+
+/**
+ * Performs polynomial division and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The result of polynomial division as a string.
+ */
 extern "C" char *
 polyDivision(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, char **polyStr2,
              char *numModStr, char *errorStr)
@@ -240,6 +322,19 @@ polyDivision(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize
         return nullptr;
     }
 }
+
+/**
+ * Performs polynomial division and returns the remainder as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The remainder of polynomial division as a string.
+ */
 extern "C" char *
 polyRest(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, char **polyStr2,
          char *numModStr, char *errorStr)
@@ -268,6 +363,19 @@ polyRest(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, c
         return nullptr;
     }
 }
+
+/**
+ * Calculates the greatest common divisor (GCD) of two polynomials and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the first polynomial.
+ * @param polyStr1      The string array representation of the first polynomial.
+ * @param polySize2     The size of the second polynomial.
+ * @param polyStr2      The string array representation of the second polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The GCD of the two polynomials as a string.
+ */
 extern "C" char *
 polyGCD(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, char **polyStr2,
         char *numModStr, char *errorStr)
@@ -296,6 +404,16 @@ polyGCD(size_t &retSize, size_t polySize1, char **polyStr1, size_t polySize2, ch
         return nullptr;
     }
 }
+/**
+ * Calculates the derivative of a polynomial and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the polynomial.
+ * @param polyStr1      The string array representation of the polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The derivative of the polynomial as a string.
+ */
 
 extern "C" char *
 polyDerivative(size_t &retSize, size_t polySize1, char **polyStr1, char *numModStr,
@@ -326,6 +444,17 @@ polyDerivative(size_t &retSize, size_t polySize1, char **polyStr1, char *numModS
     }
 }
 
+/**
+ * Evaluates a polynomial at a given point and returns the result as a string.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param polySize1     The size of the polynomial.
+ * @param polyStr1      The string array representation of the polynomial.
+ * @param numModStr     The modulus value as a string.
+ * @param evalPointStr  The evaluation point as a string.
+ * @param errorStr      The error message string.
+ * @return              The result of polynomial evaluation as a string.
+ */
 extern "C" char *
 polyEvaluate(size_t &retSize, size_t polySize1, char **polyStr1, char *numModStr,
              char *evalPointStr, char *errorStr)
@@ -353,7 +482,15 @@ polyEvaluate(size_t &retSize, size_t polySize1, char **polyStr1, char *numModStr
         return nullptr;
     }
 }
-
+/**
+ * Returns the string representation of a cyclotomic polynomial of a given order.
+ *
+ * @param retSize       The size of the resulting polynomial.
+ * @param orderStr      The order of the cyclotomic polynomial as a string.
+ * @param numModStr     The modulus value as a string.
+ * @param errorStr      The error message string.
+ * @return              The string representation of the cyclotomic polynomial.
+ */
 extern "C" char *
 getCyclotomic(size_t &retSize, char *orderStr, char *numModStr, char *errorStr)
 {
@@ -378,20 +515,4 @@ getCyclotomic(size_t &retSize, char *orderStr, char *numModStr, char *errorStr)
         strcpy(errorStr, e.what());
         return nullptr;
     }
-}
-
-char **
-getRandomPoly(int n)
-{
-    char **poly = new char *[n * 2];
-    for (int i = 0; i < n; ++i)
-    {
-        poly[i * 2] = new char[100];
-        poly[i * 2 + 1] = new char[100];
-
-        strcpy(poly[i * 2 + 1], std::to_string(n - i).c_str());
-        strcpy(poly[i * 2], std::to_string(rand() % 10).c_str());
-    }
-
-    return poly;
 }
