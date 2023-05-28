@@ -120,12 +120,34 @@ protected:
     std::list<Node<T>> poly;
     size_t degree = 0;
     T numMod = 0;
-
-    ///////////////////////For polynomial long division//////////////////////////////////////////
+    /*
+     * @brief Returns the coefficient of the node with the specified degree.
+     *
+     * Returns the coefficient of the node with the specified degree.
+     *
+     * @param power The degree of the node.
+     * @return The coefficient of the node.
+     *
+     */
     modNum<T> getCoeff(const size_t power);
+    /*
+     *@brief copy the polynomial
+     *
+     * copy the polynomial
+     *
+     * @return the copy of the polynomial
+     */
     Polynomial<T> copy() const;
+    /*
+     * @brief Shifts the polynomial to the right by the specified number of positions.
+     *
+     * Shifts the polynomial to the right by the specified number of positions.
+     *
+     * @param positions The number of positions to shift the polynomial.
+     * @return The shifted polynomial.
+     */
+
     Polynomial<T> shiftRight(int positions) const;
-    /////////////////////////////////////////////////////////////////////////////////////////////
 
 public:
     /**
