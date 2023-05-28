@@ -113,6 +113,23 @@ public:
 };
 #endif
 
+/*
+ * @brief A class representing a polynomial.
+ *
+ * The Polynomial class represents a polynomial, which consists of a list of nodes.
+ *
+ * @tparam T The type of the coefficients.
+ *
+ */
+
+/**
+ *
+ *    @brief A class representing a polynomial with coefficients of type T.
+ *    This class provides functionality for manipulating and performing operations on polynomials.
+ *    The coefficients of the polynomial are stored as a linked list of nodes, where each node represents a term
+ *    in the polynomial.
+ *    @tparam T The type of coefficients in the polynomial.
+ */
 template <typename T>
 class Polynomial
 {
