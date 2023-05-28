@@ -44,19 +44,15 @@ Polynomial<T>::divClassic(const Polynomial<T> &other) const
         while (numDeg >= denomDeg)
         {
             Polynomial<T> denomTmp = other.shiftRight(numDeg - denomDeg);
-            // std::cout << "denomTmp  ";denomTmp.print();
             auto val = remainder.getCoeff(numDeg) / denomTmp.getCoeff(numDeg);
             quotient.addNode(val.getValue(), numDeg - denomDeg);
-            // std::cout << "quotient  ";quotient.print();
-
             Polynomial<T> num(quotient.getNumMod());
             num.addNode(quotient.getCoeff(numDeg - denomDeg).getValue(), 0);
-            // std::cout << "num  ";num.print();
 
             denomTmp = denomTmp * num;
-            // std::cout << "denomTmp  ";denomTmp.print();
+
             remainder = remainder - denomTmp;
-            // std::cout << "remainder  ";remainder.print();
+
             numDeg = remainder.getDegree();
         }
 
@@ -85,6 +81,11 @@ Polynomial<T>::divClassic(const modNum<T> &other) const
 
     return std::make_pair(quotient, remainder);
 }
+/*
+ * @brief Polynomial division by number
+ * @param other divisor(modNum)
+ * @return std::pair of quotient and remainder
+ */
 
 template <typename T>
 Polynomial<T>
@@ -93,6 +94,11 @@ Polynomial<T>::operator/(const Polynomial<T> &other) const
     return this->divClassic(other).first;
 }
 
+/*
+ * @brief Polynomial division by number
+ * @param other divisor(modNum)
+ * @return std::pair of quotient and remainder
+ */
 template <typename T>
 Polynomial<T>
 Polynomial<T>::operator%(const Polynomial<T> &other) const
@@ -100,6 +106,11 @@ Polynomial<T>::operator%(const Polynomial<T> &other) const
     return this->divClassic(other).second;
 }
 
+/*
+ * @brief Polynomial division by number
+ * @param other divisor(modNum)
+ * @return std::pair of quotient and remainder
+ */
 template <typename T>
 Polynomial<T>
 Polynomial<T>::operator/(const modNum<T> &other) const
@@ -107,6 +118,11 @@ Polynomial<T>::operator/(const modNum<T> &other) const
     return this->divClassic(other).first;
 }
 
+/*
+ * @brief Polynomial division by number
+ * @param other divisor(modNum)
+ * @return std::pair of quotient and remainder
+ */
 template <typename T>
 Polynomial<T>
 Polynomial<T>::operator%(const modNum<T> &other) const

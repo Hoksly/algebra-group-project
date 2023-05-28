@@ -21,8 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<NativeFileReference Include="wwwroot/finite-field-wrapper.o" />
-		<NativeFileReference Include="wwwroot/poly-ring-wrapper.o" />
-		<NativeFileReference Include="wwwroot/poly-field-wrapper.o" />
-	</ItemGroup>
+		<!-- <NativeFileReference Include="wwwroot/finite-field-wrapper.o" /> -->
+		<!-- <NativeFileReference Include="wwwroot/poly-ring-wrapper.o" /> -->
+		
+        <NativeFileReference Include="wwwroot/global-wrapper.o" />
+   </ItemGroup>
 </Project>

@@ -5,9 +5,9 @@
 
 template <typename T>
 PolynomialField<T>
-PolynomialField<T>::inv()
+PolynomialField<T>::inv() const
 {
-    int mod = this->numMod;
+    T mod = this->numMod;
     Polynomial<T> polyMod = this->value;
     Polynomial<T> poly = this->MOD;
 
@@ -26,8 +26,8 @@ PolynomialField<T>::inv()
 
     while (!(divisor == nul))
     {
-        std::pair<Polynomial<int>, Polynomial<int>> quot = dividend.divClassic(divisor);
-        Polynomial<int> quotient = quot.first;
+        std::pair<Polynomial<T>, Polynomial<T>> quot = dividend.divClassic(divisor);
+        Polynomial<T> quotient = quot.first;
         Polynomial<T> dividendcopy = dividend;
         dividend = divisor;
         divisor = dividendcopy - (quotient * divisor);
@@ -42,6 +42,13 @@ PolynomialField<T>::inv()
 
     PolynomialField result(mod, polyMod, (res / dividend) * h);
     return result;
+}
+template <typename T>
+PolynomialField<T>
+PolynomialField<T>::operator/(const PolynomialField<T> &other) const
+{
+
+    return (*this * (other.inv()));
 }
 
 #endif

@@ -1,10 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <random>
 
 #include "../../../doctest.h"
 #include "../../mod-math.h"
+
+#include <random>
 #include "utils.h"
 #include <gmpxx.h>
+
 using namespace modular;
 template <class T>
 

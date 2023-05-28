@@ -11,6 +11,12 @@ namespace modular
 {
 #ifndef LOG_H
 #define LOG_H
+    /**
+     *
+     * @brief Custom hash function for the modNum type.
+     * This struct provides a custom hash function implementation for objects of type modNum.
+     * @tparam numT The type of values stored in modNum.
+     */
 
     template <class numT>
     struct customHash
@@ -22,6 +28,16 @@ namespace modular
         size_t operator()(const modNum<numT> &number) const { return hasher(number.getValue()); }
     };
 
+    /*
+     * @brief Computes the discrete logarithm of a value in a group.
+     * @tparam numT The type of values stored in modNum.
+     * @param value The value to compute the logarithm of.
+     * @param base The base of the logarithm.
+     * @return The discrete logarithm of value in base.
+     * @throws std::invalid_argument if base is not a generator of the group.
+     *
+     */
+
     template <class numT>
     numT
     log(modNum<numT> value, modNum<numT> base)
@@ -29,7 +45,7 @@ namespace modular
         if (!isGenerator(base))
             throw std::invalid_argument("Base of a logarithm must be a group Generator");
 
-        numT m = static_cast<numT>(std::sqrt(base.getMod()));
+        numT m = static_cast<numT>(std::sqrt(base.getMod().get_d()));
         while (m * m < base.getMod())
             m++;
 
@@ -49,9 +65,6 @@ namespace modular
         {
             if (table.find(gamma) != table.end())
             {
-                std::cout << i << std::endl;
-                std::cout << m << std::endl;
-                std::cout << table[gamma] << std::endl;
 
                 return i * m + table[gamma];
             }
@@ -60,6 +73,7 @@ namespace modular
 
         throw std::invalid_argument("Unexpected behaviour");
     }
+
 #endif
 
 } // namespace modular
