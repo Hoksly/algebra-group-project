@@ -46,8 +46,8 @@
 			<div>
 				<div class="wrapper">
 					<div class="input">
-						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
-						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first polinomial">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second polinomial">
 					</div>
 				</div>
 				<button class="custom-btn btn-15" @onclick="Add">Add</button>
@@ -59,8 +59,8 @@
 						<div class="typing-demo">
 							Result:
 						</div>
-						<div class="typing-demo">
-							@result
+						<div class="input" style="width: 70vw;">
+							<input type="text" name="input" id="input" @bind-value="@result" placeholder="Result output">
 						</div>
 					</div>
 				}
@@ -71,7 +71,7 @@
 				<div>
 					<div class="wrapper">
 						<div class="input">
-							<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter number">
+							<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter polinomial">
 						</div>
 					</div>
 					<button class="custom-btn btn-15" @onclick="Derivative">Derivative</button>
@@ -82,8 +82,8 @@
 							<div class="typing-demo">
 								Result:
 							</div>
-							<div class="typing-demo">
-								@result
+							<div class="input" style="width: 70vw;">
+								<input type="text" name="input" id="input" @bind-value="@result" placeholder="Result output">
 							</div>
 						</div>
 					}
@@ -94,8 +94,8 @@
 			<div>
 				<div class="wrapper">
 					<div class="input">
-						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first number">
-						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second number">
+						<input type="text" name="input" id="input" @bind-value="@firstInputBox" placeholder="Enter first polinomial">
+						<input type="text" name="input" id="input" @bind-value="@secondInputBox" placeholder="Enter second polinomial">
 					</div>
 				</div>
 				<button class="custom-btn btn-15" @onclick="Division">Division</button>
@@ -107,8 +107,8 @@
 						<div class="typing-demo">
 							Result:
 						</div>
-						<div style="position:relative">
-							@result
+						<div class="input" style="width: 70vw;">
+							<input type="text" name="input" id="input" @bind-value="@result" placeholder="Result output">
 						</div>
 					</div>
 				}
@@ -128,8 +128,8 @@
 						<div class="typing-demo">
 							Result:
 						</div>
-						<div class="typing-demo">
-							@result
+						<div class="input" style="width: 70vw;">
+							<input type="text" name="input" id="input" @bind-value="@result" placeholder="Result output">
 						</div>
 					</div>
 				}
