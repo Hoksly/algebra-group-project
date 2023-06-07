@@ -4,4 +4,4 @@
 
 ## [Documentation](https://hoksly.github.io/algebra-group-project/index.html)
 ## [Video demonstration](https://youtu.be/UVfb0xs-ZYw)
-## [Report]
+## [Report](https://docs.google.com/document/d/1ImVPoPuH_4oMNYpOwj7Zgu_WTnHfB_bmcQpjTFFNnqs/edit?usp=sharing)
