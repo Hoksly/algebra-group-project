@@ -1,11 +1,11 @@
 ﻿html {
 	font-size: 125%;
-	line-height: 1;
+	line-height: 1.4;
 }
 
 
 h2 {
-	font-size: 1em;
+	font-size: 2em;
 }
 
 h2, p {
@@ -23,14 +23,16 @@ h2, p {
 
 .input {
 	display: flex;
-	overflow-x: auto;
-	white-space: nowrap;
+	align-items: center;
 }
 
 
 input {
-	overflow-x: auto;
-	white-space: nowrap;
+	width: 100%;
+	font: inherit;
+	padding: 0.25em 0.5em;
+	border: 0.125em solid hsl(30, 76%, 10%);
+	outline: none;
 }
 
 
@@ -42,17 +44,18 @@ input {
 	/*This part is important for centering*/
 	display: grid;
 	place-items: center;
-	overflow: auto;
+	grid-gap: 50px;
 }
 
 .typing-demo {
+	width: 100%;
 	animation: typing 2s steps(22), blink .5s step-end infinite alternate;
-	white-space: pre-wrap;
-	word-wrap: break-word;
-	font-size: 1em;
+	white-space: nowrap;
+	overflow: hidden;
+	font-family: monospace;
+	font-size: 2em;
 	outline: none; /* Add this line to remove the default text cursor */
 	pointer-events: none; /* Disable pointer events on the pseudo-element */
-	text-align: center;
 }
 
 @keyframes typing {
