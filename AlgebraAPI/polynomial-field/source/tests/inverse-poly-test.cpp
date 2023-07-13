@@ -73,4 +73,52 @@ TEST_CASE("Inverse polynomial")
 
         REQUIRE((polynomialfield.inv().getValue() * polyValue) % polyMod == one);
     }
+    SUBCASE("Fourth test")
+    {
+        /*polyValue = Polinome("x^6+x^4+x+1");  polyMod = Polinome("x^8+x^4+x^3+x+1"); result = Polinome("x^7+x^6+x^3+x");*/
+        T mod = 2;
+
+        Polynomial<T> polyMod(mod);
+        polyMod.addNode(1, 8);
+        polyMod.addNode(1, 4);
+        polyMod.addNode(1, 3);
+        polyMod.addNode(1, 1);
+        polyMod.addNode(1, 0);
+
+        Polynomial<T> polyValue(mod);
+        polyValue.addNode(1, 6);
+        polyValue.addNode(1, 4);
+        polyValue.addNode(1, 1);
+        polyValue.addNode(1, 0);
+
+        std::vector<std::pair<T, size_t>> res = {{1, 7}, {1, 6}, {1, 3}, {1, 1}};
+        Polynomial<T> result(res, mod);
+
+        PolynomialField<T> polynomialfield(mod, polyMod, polyValue);
+
+        REQUIRE(polynomialfield.inv().getValue() == result);
+    }
+    SUBCASE("Fifth test")
+    {
+        /*polyValue = Polinome("x^4+x^2");  polyMod = Polinome("x^7+x^6+x^3+x+1"); result = Polinome("x^5+x^3+x^2");*/
+        T mod = 2;
+
+        Polynomial<T> polyMod(mod);
+        polyMod.addNode(1, 7);
+        polyMod.addNode(1, 6);
+        polyMod.addNode(1, 3);
+        polyMod.addNode(1, 1);
+        polyMod.addNode(1, 0);
+
+        Polynomial<T> polyValue(mod);
+        polyValue.addNode(1, 4);
+        polyValue.addNode(1, 2);
+
+        std::vector<std::pair<T, size_t>> res = {{1, 5}, {1, 3}, {1, 2}};
+        Polynomial<T> result(res, mod);
+
+        PolynomialField<T> polynomialfield(mod, polyMod, polyValue);
+
+        REQUIRE(polynomialfield.inv().getValue() == result);
+    }
 }

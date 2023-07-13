@@ -3,6 +3,12 @@
 
 #include "../poly-field-math.h"
 
+/**
+ *  @brief Finding the inverse polynomial using Euclid's extended algorithm
+ *
+ *  @return returns inverse polynomial
+ */
+
 template <typename T>
 PolynomialField<T>
 PolynomialField<T>::inv() const
